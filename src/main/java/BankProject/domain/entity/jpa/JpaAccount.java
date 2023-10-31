@@ -2,18 +2,24 @@ package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.Account;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Objects;
 
 @Entity
 @Table(name = "account")
+@NoArgsConstructor
+@AllArgsConstructor
 public class JpaAccount implements Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private String id;
+    private byte[] id;
 
     @OneToOne
     @JoinColumn(name = "client_id")
@@ -39,7 +45,7 @@ public class JpaAccount implements Account {
 
     @Override
     public String getId() {
-        return id;
+        return Arrays.toString(id);
     }
 
     @Override

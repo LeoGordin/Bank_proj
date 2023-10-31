@@ -2,12 +2,16 @@ package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.Agreement;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "agreement")
+@NoArgsConstructor
+@AllArgsConstructor
 public class JpaAgreement implements Agreement {
 
     @Id

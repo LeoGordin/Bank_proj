@@ -2,10 +2,16 @@ package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.*;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.util.List;
 
+@Entity
+@Table(name = "client")
+@NoArgsConstructor
+@AllArgsConstructor
 public class JpaClient implements Client {
 
     @Id
