@@ -31,12 +31,12 @@ public class JpaAccountService implements AccountService {
         return accountRepository.findAll();
     }
 
-    // TODO: implement this
     @Override
     public List<JpaAccount> findByClientId(int clientId) {
         List<JpaAccount> accounts = new ArrayList<>();
-        accounts.add(accountRepository.findAll().stream()
-                .filter(account -> account.getClientId() == clientId).findFirst().get());
+        accountRepository.findAll().stream()
+                .filter(account -> account.getClientId() == clientId)
+                .forEach(accounts::add);
         return accounts;
     }
 
@@ -61,7 +61,7 @@ public class JpaAccountService implements AccountService {
     }
 
     @Override
-    public BigDecimal getBalance(@NotNull JpaAccount account) {
+    public BigDecimal getBalance(JpaAccount account) {
         return account.getBalance();
     }
 

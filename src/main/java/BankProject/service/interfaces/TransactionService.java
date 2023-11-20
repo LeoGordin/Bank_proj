@@ -19,5 +19,5 @@ public interface TransactionService {
 
     List<JpaTransaction> getTransactionsByAccount(UUID accountId, java.sql.Timestamp from, java.sql.Timestamp to);
 
-    List<JpaTransaction> getTransactionsByClient(UUID clientId, java.sql.Timestamp from, java.sql.Timestamp to);
+    List<JpaTransaction> getTransactionsByClient(int clientId, java.sql.Timestamp from, java.sql.Timestamp to);
 }

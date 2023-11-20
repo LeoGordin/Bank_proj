@@ -96,4 +96,9 @@ public class JpaAgreement implements Agreement {
         return updatedAt;
     }
 
+    @Override
+    public int getClientId() {
+        return 0;
+    }
+
 }

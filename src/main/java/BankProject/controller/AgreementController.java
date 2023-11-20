@@ -21,7 +21,7 @@ public class AgreementController {
     }
 
     @GetMapping("/client/{clientId}")
-    public List<JpaAgreement> getByClientId(@PathVariable UUID clientId) {
+    public List<JpaAgreement> getByClientId(@PathVariable int clientId) {
         return agreementService.getByClientId(clientId);
     }
 

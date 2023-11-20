@@ -33,4 +33,9 @@ public class TransactionController {
         return transactionService.getTransactionsByAccount(accountId, from, to);
     }
 
+    @GetMapping("/client/{clientId}")
+    public List<JpaTransaction> getTransactions(@PathVariable int clientId, Timestamp from, Timestamp to) {
+        return transactionService.getTransactionsByClient(clientId, from, to);
+    }
+
 }

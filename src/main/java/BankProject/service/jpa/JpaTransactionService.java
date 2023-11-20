@@ -1,22 +1,29 @@
 package BankProject.service.jpa;
 
+import BankProject.domain.entity.jpa.JpaAccount;
 import BankProject.domain.entity.jpa.JpaTransaction;
+import BankProject.repository.AccountRepository;
 import BankProject.repository.TransactionRepository;
 import BankProject.service.interfaces.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class JpaTransactionService implements TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+
+    @Autowired
+    AccountRepository accountRepository;
+
+    @Autowired
+    JpaAccountService accountService;
 
     @Override
     public List<JpaTransaction> getAll() {
@@ -52,6 +59,21 @@ public class JpaTransactionService implements TransactionService {
                         && transaction.getCreationDate().after(from)
                         && transaction.getCreationDate().before(to)
         ).forEach(transactions::add);
+        return transactions;
+    }
+
+    @Override
+    public List<JpaTransaction> getTransactionsByClient(int clientId, Timestamp from, Timestamp to) {
+        List<JpaAccount> accounts = accountService.findByClientId(clientId);
+
+        List<JpaTransaction> transactions = new ArrayList<>();
+
+        transactionRepository.findAll().stream().filter(
+                transaction -> accounts.stream().anyMatch(account -> account.getId().equals(transaction.getCreditAccountId()))
+                        && transaction.getCreationDate().after(from)
+                        && transaction.getCreationDate().before(to)
+        ).forEach(transactions::add);
+
         return transactions;
     }
 }

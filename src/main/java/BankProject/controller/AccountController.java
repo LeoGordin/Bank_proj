@@ -21,7 +21,7 @@ public class AccountController {
     }
 
     @RequestMapping("/client/{clientId}")
-    List<JpaAccount> findByClientId(@PathVariable UUID clientId) {
+    List<JpaAccount> findByClientId(@PathVariable int clientId) {
         return accountService.findByClientId(clientId);
     }
 
