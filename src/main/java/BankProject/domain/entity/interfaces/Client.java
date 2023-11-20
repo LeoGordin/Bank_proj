@@ -2,6 +2,7 @@ package BankProject.domain.entity.interfaces;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface for Bank Client

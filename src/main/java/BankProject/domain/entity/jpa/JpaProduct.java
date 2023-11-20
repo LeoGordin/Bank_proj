@@ -1,9 +1,7 @@
 package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.Product;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +15,8 @@ import java.sql.Timestamp;
 public class JpaProduct implements Product {
 
     @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "manager_id")

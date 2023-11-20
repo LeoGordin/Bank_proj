@@ -8,7 +8,11 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "transaction")
@@ -17,13 +21,13 @@ import java.util.Arrays;
 public class JpaTransaction implements Transaction {
 
     @Column(name = "id")
-    private byte[] id;
+    private UUID id;
 
     @Column(name = "credit_account_id")
-    private byte[] creditAccountId;
+    private UUID creditAccountId;
 
     @Column(name = "debit_account_id")
-    private byte[] debitAccountId;
+    private UUID debitAccountId;
 
     @Column(name = "type")
     private int type;
@@ -34,20 +38,31 @@ public class JpaTransaction implements Transaction {
     @Column(name = "description")
     private String description;
 
+    public JpaTransaction(UUID id, UUID creditAccountId, UUID debitAccountId, int type,
+                          BigDecimal amount, Timestamp timestamp, String description) {
+
+        this.id = id;
+        this.creditAccountId = creditAccountId;
+        this.debitAccountId = debitAccountId;
+        this.type = type;
+        this.amount = amount;
+        this.description = description;
+    }
+
 
     @Override
-    public String getId() {
-        return Arrays.toString(id);
+    public UUID getId() {
+        return id;
     }
 
     @Override
-    public String getCreditAccountId() {
-        return Arrays.toString(creditAccountId);
+    public UUID getCreditAccountId() {
+        return creditAccountId;
     }
 
     @Override
-    public String getDebitAccountId() {
-        return Arrays.toString(debitAccountId);
+    public UUID getDebitAccountId() {
+        return debitAccountId;
     }
 
     @Override
@@ -64,4 +79,11 @@ public class JpaTransaction implements Transaction {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public Timestamp getCreationDate() {
+        return new Timestamp(new Date().getTime());
+    }
+
+
 }

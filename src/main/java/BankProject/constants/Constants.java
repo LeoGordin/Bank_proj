@@ -1,8 +1,5 @@
 package BankProject.constants;
 
-import java.util.Currency;
-import java.util.HashMap;
-
 public interface Constants {
     String DB_DRIVER_PATH = "com.mysql.cj.jdbc.Driver";
     String DB_ADDRESS = "jdbc:mysql://127.0.0.1:3306/";

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "account")
@@ -19,11 +19,11 @@ public class JpaAccount implements Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private byte[] id;
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name = "client_id")
-    private String clientId;
+    private int clientId;
 
     @Column(name = "name")
     private String name;
@@ -44,12 +44,12 @@ public class JpaAccount implements Account {
     private Timestamp updatedAt;
 
     @Override
-    public String getId() {
-        return Arrays.toString(id);
+    public UUID getId() {
+        return id;
     }
 
     @Override
-    public String getClientId() {
+    public int getClientId() {
         return clientId;
     }
 
@@ -86,5 +86,10 @@ public class JpaAccount implements Account {
     @Override
     public Timestamp getUpdatedAt() {
         return updatedAt;
+    }
+
+    @Override
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

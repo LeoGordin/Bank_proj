@@ -1,6 +1,7 @@
 package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.*;
+import BankProject.domain.entity.interfaces.Manager;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import java.util.List;
 public class JpaClient implements Client {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

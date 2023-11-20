@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Interface for Agreement
@@ -17,7 +18,7 @@ public interface Agreement {
      * Returns ID of the agreement (between Bank and Client)
      * @return ID of @Agreement
      */
-    int getId();
+    UUID getId();
 
     /**
      * Returns ID of an account, used in agreement
@@ -83,4 +84,5 @@ public interface Agreement {
     Timestamp getUpdatedAt();
 
 
+    int getClientId();
 }

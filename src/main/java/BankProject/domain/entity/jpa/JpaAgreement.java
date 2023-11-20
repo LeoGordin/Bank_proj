@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Table(name = "agreement")
@@ -15,9 +16,9 @@ import java.sql.Timestamp;
 public class JpaAgreement implements Agreement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id")
-    private int id;
+    private UUID id;
 
     @OneToOne
     @JoinColumn(name = "account_id")
@@ -46,7 +47,7 @@ public class JpaAgreement implements Agreement {
     private Timestamp updatedAt;
 
     @Override
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -94,4 +95,5 @@ public class JpaAgreement implements Agreement {
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
+
 }

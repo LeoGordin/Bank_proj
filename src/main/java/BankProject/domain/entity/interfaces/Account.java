@@ -2,6 +2,7 @@ package BankProject.domain.entity.interfaces;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Interface for Bank Account
@@ -17,14 +18,14 @@ public interface Account {
      *
      * @return ID of @Account
      */
-    String getId();
+    UUID getId();
 
     /**
      * Retrieves ID of a bank account's owner (@Client)
      *
      * @return ID of @Client
      */
-    String getClientId();
+    int getClientId();
 
     /**
      * Retrieves name of a bank account
@@ -32,6 +33,8 @@ public interface Account {
      * @return ID of @Account
      */
     String getName();
+
+
 
     /**
      * Retrieves status of bank account
@@ -74,4 +77,6 @@ public interface Account {
      * @return @Account last update moment using @Timestamp
      */
     Timestamp getUpdatedAt();
+
+    void setBalance(BigDecimal balance);
 }

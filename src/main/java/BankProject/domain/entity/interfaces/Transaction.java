@@ -1,6 +1,8 @@
 package BankProject.domain.entity.interfaces;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * Interface for Bank Transaction
@@ -15,21 +17,21 @@ public interface Transaction {
      *
      * @return ID of @Transaction
      */
-    String getId();
+    UUID getId();
 
     /**
      * Retrieves ID of the credit (sender) account
      *
      * @return ID of credit @Account
      */
-    String getCreditAccountId();
+    UUID getCreditAccountId();
 
     /**
      * Retrieves ID of the debit (recipient) account
      *
      * @return ID of debit @Account
      */
-    String getDebitAccountId();
+    UUID getDebitAccountId();
 
     /**
      * Retrieves type of transaction
@@ -51,4 +53,6 @@ public interface Transaction {
      * @return description of @Transaction
      */
     String getDescription();
+
+    Timestamp getCreationDate();
 }

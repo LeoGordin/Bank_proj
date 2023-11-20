@@ -1,7 +1,6 @@
 package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.Client;
-import BankProject.domain.entity.interfaces.Manager;
 import BankProject.domain.entity.interfaces.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.List;
 @Table(name = "manager")
 @NoArgsConstructor
 @AllArgsConstructor
-public class JpaManager implements Manager {
+public class JpaManager implements BankProject.domain.entity.interfaces.Manager {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
