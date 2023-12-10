@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ManagerService {
 
-    List<JpaManager> getAll();
+    List<JpaManager> findAll();
 
     JpaManager getById(int id);
 

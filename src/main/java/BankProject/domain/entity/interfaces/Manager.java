@@ -1,5 +1,8 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.jpa.JpaClient;
+import BankProject.domain.entity.jpa.JpaProduct;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -59,12 +62,12 @@ public interface Manager {
      *
      * @return last update date and time of @Manager
      */
-    List<Client> getClients();
+    List<JpaClient> getClients();
 
     /**
      * Retrieves manager's list of products
      *
-     * @return @Product list of @Manager
+     * @return @JpaProduct list of @JpaManager
      */
-    List<Product> getProducts();
+    List<JpaProduct> getProducts();
 }

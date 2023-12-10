@@ -22,7 +22,7 @@ public class JpaClient implements Client {
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private String managerId;
+    private JpaManager manager;
 
     @Column(name = "status")
     private int status;
@@ -51,17 +51,15 @@ public class JpaClient implements Client {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "account")
-    private List<Account> accounts;
+    @OneToMany(mappedBy = "client")
+    private List<JpaAccount> accounts;
 
-    @OneToMany(mappedBy = "agreement")
-    private List<Agreement> agreements;
+    @OneToMany(mappedBy = "client")
+    private List<JpaTransaction> transactions;
 
-    @OneToMany(mappedBy = "transaction")
-    private List<Transaction> transactions;
+    @OneToMany(mappedBy = "client")
+    private List<JpaAgreement> agreements;
 
-    @OneToMany(mappedBy = "manager")
-    private List<Manager> managers;
 
     @Override
     public int getId() {
@@ -69,8 +67,8 @@ public class JpaClient implements Client {
     }
 
     @Override
-    public String getManagerId() {
-        return managerId;
+    public int getManagerId() {
+        return manager.getId();
     }
 
     @Override
@@ -119,22 +117,23 @@ public class JpaClient implements Client {
     }
 
     @Override
-    public List<Account> getAccounts() {
+    public JpaManager getManager() {
+        return manager;
+    }
+
+    @Override
+    public List<JpaAccount> getAccounts() {
         return accounts;
     }
 
     @Override
-    public List<Agreement> getAgreements() {
+    public List<JpaAgreement> getAgreements() {
         return agreements;
     }
 
     @Override
-    public List<Transaction> getTransactions() {
+    public List<JpaTransaction> getTransactions() {
         return transactions;
     }
 
-    @Override
-    public List<Manager> getManagers() {
-        return managers;
-    }
 }

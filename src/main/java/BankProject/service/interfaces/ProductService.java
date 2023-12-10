@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<JpaProduct> getAll();
+    List<JpaProduct> findAll();
 
     JpaProduct getById(int id);
 

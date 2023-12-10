@@ -16,7 +16,7 @@ public class JpaProductService implements ProductService {
 
 
     @Override
-    public List<JpaProduct> getAll() {
+    public List<JpaProduct> findAll() {
         return productRepository.findAll();
     }
 

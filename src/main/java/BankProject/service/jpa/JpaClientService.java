@@ -14,7 +14,7 @@ public class JpaClientService implements ClientService {
     @Autowired
     ClientRepository clientRepository;
     @Override
-    public List<JpaClient> getAll() {
+    public List<JpaClient> findAll() {
         return clientRepository.findAll();
     }
 

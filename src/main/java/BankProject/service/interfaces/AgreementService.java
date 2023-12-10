@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface AgreementService {
 
-    List<JpaAgreement> getAll();
+    List<JpaAgreement> findAll();
 
     List<JpaAgreement> getByClientId(int clientId);
 

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface ClientService {
 
-    List<JpaClient> getAll();
+    List<JpaClient> findAll();
 
     JpaClient getById(int id);
 

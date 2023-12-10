@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/client")
 public class ClientController {
 
     @Autowired
@@ -15,7 +16,7 @@ public class ClientController {
 
     @GetMapping
     public List<JpaClient> getAll() {
-        return clientService.getAll();
+        return clientService.findAll();
     }
 
     @GetMapping("/{id}")

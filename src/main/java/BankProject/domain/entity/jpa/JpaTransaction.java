@@ -1,16 +1,13 @@
 package BankProject.domain.entity.jpa;
 
 import BankProject.domain.entity.interfaces.Transaction;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
@@ -18,9 +15,12 @@ import java.util.UUID;
 @Table(name = "transaction")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class JpaTransaction implements Transaction {
 
     @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @Column(name = "credit_account_id")
@@ -38,16 +38,12 @@ public class JpaTransaction implements Transaction {
     @Column(name = "description")
     private String description;
 
-    public JpaTransaction(UUID id, UUID creditAccountId, UUID debitAccountId, int type,
-                          BigDecimal amount, Timestamp timestamp, String description) {
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-        this.id = id;
-        this.creditAccountId = creditAccountId;
-        this.debitAccountId = debitAccountId;
-        this.type = type;
-        this.amount = amount;
-        this.description = description;
-    }
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private JpaClient client;
 
 
     @Override
@@ -81,9 +77,11 @@ public class JpaTransaction implements Transaction {
     }
 
     @Override
-    public Timestamp getCreationDate() {
-        return new Timestamp(new Date().getTime());
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-
+    public JpaClient getClient() {
+        return client;
+    }
 }

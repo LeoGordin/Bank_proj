@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface TransactionService {
 
-    List<JpaTransaction> getAll();
+    List<JpaTransaction> findAll();
 
     JpaTransaction getById(UUID id);
 

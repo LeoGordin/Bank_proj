@@ -19,7 +19,7 @@ public class JpaAgreementService implements AgreementService {
     private AgreementRepository agreementRepository;
 
     @Override
-    public List<JpaAgreement> getAll() {
+    public List<JpaAgreement> findAll() {
         return agreementRepository.findAll();
     }
 
@@ -39,7 +39,7 @@ public class JpaAgreementService implements AgreementService {
 
     @Override
     public void removeById(UUID id) {
-        agreementRepository.delete(getAll().stream()
+        agreementRepository.delete(findAll().stream()
                 .filter(agreement -> agreement.getId().equals(id)).findFirst().get());
     }
 

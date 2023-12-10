@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/manager")
 public class ManagerController {
 
     @Autowired
@@ -15,7 +16,7 @@ public class ManagerController {
 
     @GetMapping
     public List<JpaManager> getAll() {
-        return managerService.getAll();
+        return managerService.findAll();
     }
 
     @GetMapping("/{id}")

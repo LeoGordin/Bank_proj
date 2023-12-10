@@ -1,5 +1,10 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.jpa.JpaAccount;
+import BankProject.domain.entity.jpa.JpaAgreement;
+import BankProject.domain.entity.jpa.JpaManager;
+import BankProject.domain.entity.jpa.JpaTransaction;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
@@ -24,7 +29,7 @@ public interface Client {
      *
      * @return ID of @Manager
      */
-    String getManagerId();
+    int getManagerId();
 
     /**
      * Retrieves status of manager
@@ -90,30 +95,31 @@ public interface Client {
     Timestamp getUpdatedAt();
 
     /**
+     * Retrieves manager of client
+     *
+     * @return @JpaManager of @JpaClient
+     */
+    JpaManager getManager();
+
+    /**
      * Retrieves list of client's accounts
      *
-     * @return list of @Account of @Client
+     * @return list of @JpaAccount of @JpaClient
      */
-    List<Account> getAccounts();
+    List<JpaAccount> getAccounts();
 
     /**
      * Retrieves list of client's agreements
      *
-     * @return list of @Agreement of @Client
+     * @return list of @JpaAgreement of @JpaClient
      */
-    List<Agreement> getAgreements();
+    List<JpaAgreement> getAgreements();
 
     /**
      * Retrieves list of client's transactions
      *
-     * @return list of @Transaction of @Client
+     * @return list of @JpaTransaction of @JpaClient
      */
-    List<Transaction> getTransactions();
+    List<JpaTransaction> getTransactions();
 
-    /**
-     * Retrieves list of Client's managers
-     *
-     * @return list of @Manager of @Client
-     */
-    List<Manager> getManagers();
 }

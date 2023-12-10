@@ -15,7 +15,7 @@ public class JpaManagerService implements ManagerService {
     @Autowired
     ManagerRepository managerRepository;
     @Override
-    public List<JpaManager> getAll() {
+    public List<JpaManager> findAll() {
         return managerRepository.findAll();
     }
 

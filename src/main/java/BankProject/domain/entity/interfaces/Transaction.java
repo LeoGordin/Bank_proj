@@ -54,5 +54,5 @@ public interface Transaction {
      */
     String getDescription();
 
-    Timestamp getCreationDate();
+    Timestamp getCreatedAt();
 }

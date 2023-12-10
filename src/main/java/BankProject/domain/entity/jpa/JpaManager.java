@@ -35,9 +35,11 @@ public class JpaManager implements BankProject.domain.entity.interfaces.Manager 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    private List<Client> clients;
+    @OneToMany(mappedBy = "manager")
+    private List<JpaClient> clients;
 
-    private List<Product> products;
+    @OneToMany(mappedBy = "manager")
+    private List<JpaProduct> products;
 
     @Override
     public int getId() {
@@ -70,12 +72,12 @@ public class JpaManager implements BankProject.domain.entity.interfaces.Manager 
     }
 
     @Override
-    public List<Client> getClients() {
+    public List<JpaClient> getClients() {
         return clients;
     }
 
     @Override
-    public List<Product> getProducts() {
+    public List<JpaProduct> getProducts() {
         return products;
     }
 }

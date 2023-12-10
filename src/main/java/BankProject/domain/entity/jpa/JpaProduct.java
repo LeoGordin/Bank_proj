@@ -3,6 +3,7 @@ package BankProject.domain.entity.jpa;
 import BankProject.domain.entity.interfaces.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @Table(name = "product")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class JpaProduct implements Product {
 
     @Column(name = "id")
@@ -19,8 +21,12 @@ public class JpaProduct implements Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "manager_id")
-    private int managerId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "manager_id")
+    private JpaManager manager;
+
+    @OneToOne(mappedBy = "product")
+    private JpaAccount account;
 
     @Column(name = "name")
     private String name;
@@ -50,7 +56,7 @@ public class JpaProduct implements Product {
 
     @Override
     public int getManagerId() {
-        return managerId;
+        return manager.getId();
     }
 
     @Override

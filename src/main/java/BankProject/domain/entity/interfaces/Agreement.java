@@ -25,14 +25,14 @@ public interface Agreement {
      *
      * @return ID of @Account
      */
-    String getAccountId();
+    UUID getAccountId();
 
     /**
      * Returns ID of a product, used in agreement
      *
      * @return ID of @Product
      */
-    String getProductId();
+    int getProductId();
 
     /**
      * Returns interest rate of the agreement

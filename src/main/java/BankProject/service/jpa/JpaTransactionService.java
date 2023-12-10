@@ -26,7 +26,7 @@ public class JpaTransactionService implements TransactionService {
     JpaAccountService accountService;
 
     @Override
-    public List<JpaTransaction> getAll() {
+    public List<JpaTransaction> findAll() {
         return transactionRepository.findAll();
     }
 
@@ -56,8 +56,8 @@ public class JpaTransactionService implements TransactionService {
         List<JpaTransaction> transactions = new ArrayList<>();
         transactionRepository.findAll().stream().filter(
                 transaction -> transaction.getCreditAccountId().equals(CreditAccountId)
-                        && transaction.getCreationDate().after(from)
-                        && transaction.getCreationDate().before(to)
+                        && transaction.getCreatedAt().after(from)
+                        && transaction.getCreatedAt().before(to)
         ).forEach(transactions::add);
         return transactions;
     }
@@ -70,8 +70,8 @@ public class JpaTransactionService implements TransactionService {
 
         transactionRepository.findAll().stream().filter(
                 transaction -> accounts.stream().anyMatch(account -> account.getId().equals(transaction.getCreditAccountId()))
-                        && transaction.getCreationDate().after(from)
-                        && transaction.getCreationDate().before(to)
+                        && transaction.getCreatedAt().after(from)
+                        && transaction.getCreatedAt().before(to)
         ).forEach(transactions::add);
 
         return transactions;

@@ -20,13 +20,17 @@ public class JpaAgreement implements Agreement {
     @Column(name = "id")
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "account_id")
-    private String accountId;
+    private JpaAccount account;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "product_id")
-    private String productId;
+    private JpaProduct product;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private JpaClient client;
 
     @Column(name = "interest_rate")
     private float interestRate;
@@ -52,13 +56,13 @@ public class JpaAgreement implements Agreement {
     }
 
     @Override
-    public String getAccountId() {
-        return accountId;
+    public UUID getAccountId() {
+        return account.getId();
     }
 
     @Override
-    public String getProductId() {
-        return productId;
+    public int getProductId() {
+        return product.getId();
     }
 
     @Override
@@ -98,7 +102,7 @@ public class JpaAgreement implements Agreement {
 
     @Override
     public int getClientId() {
-        return 0;
+        return client.getId();
     }
 
 }

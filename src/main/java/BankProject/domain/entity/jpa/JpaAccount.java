@@ -3,6 +3,7 @@ package BankProject.domain.entity.jpa;
 import BankProject.domain.entity.interfaces.Account;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Table(name = "account")
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 public class JpaAccount implements Account {
 
     @Id
@@ -21,9 +23,13 @@ public class JpaAccount implements Account {
     @Column(name = "id")
     private UUID id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id")
-    private int clientId;
+    private JpaClient client;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
+    private JpaProduct product;
 
     @Column(name = "name")
     private String name;
@@ -50,7 +56,7 @@ public class JpaAccount implements Account {
 
     @Override
     public int getClientId() {
-        return clientId;
+        return client.getId();
     }
 
     @Override

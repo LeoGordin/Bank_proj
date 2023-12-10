@@ -8,19 +8,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RestController("/agreements")
+@RestController
+@RequestMapping("/agreement")
 public class AgreementController {
 
     @Autowired
     JpaAgreementService agreementService;
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<JpaAgreement> getAll() {
-        return agreementService.getAll();
+        return agreementService.findAll();
     }
 
-    @GetMapping("/client/{clientId}")
+    @GetMapping("/{clientId}")
     public List<JpaAgreement> getByClientId(@PathVariable int clientId) {
         return agreementService.getByClientId(clientId);
     }
