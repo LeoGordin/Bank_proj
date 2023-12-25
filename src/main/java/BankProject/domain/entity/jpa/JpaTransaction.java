@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -81,7 +80,15 @@ public class JpaTransaction implements Transaction {
         return createdAt;
     }
 
-    public JpaClient getClient() {
-        return client;
+    public void setCreditAccountId(UUID creditAccountId) {
+        this.creditAccountId = creditAccountId;
+    }
+
+    public void setCreatedAt(Timestamp timestamp) {
+        this.createdAt = timestamp;
+    }
+
+    public void setClient(JpaClient client) {
+        this.client = client;
     }
 }

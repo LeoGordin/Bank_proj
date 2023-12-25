@@ -98,4 +98,8 @@ public class JpaAccount implements Account {
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
+
+    public JpaClient getClient() {
+        return client;
+    }
 }

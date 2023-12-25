@@ -1,7 +1,5 @@
 package BankProject.domain.entity.jpa;
 
-import BankProject.domain.entity.interfaces.Client;
-import BankProject.domain.entity.interfaces.Product;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

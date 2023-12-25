@@ -93,4 +93,8 @@ public class JpaProduct implements Product {
     public Timestamp getUpdatedAt() {
         return updatedAt;
     }
+
+    public void setId(int productId) {
+        this.id = productId;
+    }
 }

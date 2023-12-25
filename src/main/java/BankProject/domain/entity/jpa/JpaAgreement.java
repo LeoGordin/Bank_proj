@@ -4,6 +4,7 @@ import BankProject.domain.entity.interfaces.Agreement;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -105,4 +106,11 @@ public class JpaAgreement implements Agreement {
         return client.getId();
     }
 
+    public void setClient(JpaClient client) {
+        this.client = client;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 }

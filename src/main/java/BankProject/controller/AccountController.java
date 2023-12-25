@@ -1,6 +1,7 @@
 package BankProject.controller;
 
 import BankProject.domain.entity.jpa.JpaAccount;
+import BankProject.service.interfaces.AccountService;
 import BankProject.service.jpa.JpaAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,16 +14,11 @@ import java.util.UUID;
 public class AccountController {
 
     @Autowired
-    JpaAccountService accountService;
+    private JpaAccountService accountService;
 
     @GetMapping
     List<JpaAccount> getAll() {
         return accountService.findAll();
-    }
-
-    @RequestMapping("/client/{clientId}")
-    List<JpaAccount> findByClientId(@PathVariable int clientId) {
-        return accountService.findByClientId(clientId);
     }
 
     @RequestMapping("/{id}")

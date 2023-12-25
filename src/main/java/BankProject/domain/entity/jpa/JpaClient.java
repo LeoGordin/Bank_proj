@@ -5,6 +5,7 @@ import BankProject.domain.entity.interfaces.Manager;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -135,5 +136,4 @@ public class JpaClient implements Client {
     public List<JpaTransaction> getTransactions() {
         return transactions;
     }
-
 }

@@ -14,8 +14,6 @@ public interface AccountService {
 
     List<JpaAccount> findAll();
 
-    List<JpaAccount> findByClientId(int clientId);
-
     JpaAccount findById(UUID id);
 
     void createAccount(JpaAccount account);

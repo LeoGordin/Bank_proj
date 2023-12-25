@@ -1,8 +1,10 @@
 package BankProject.service.jpa;
 
 import BankProject.domain.entity.jpa.JpaAccount;
+import BankProject.domain.entity.jpa.JpaClient;
 import BankProject.domain.entity.jpa.JpaTransaction;
 import BankProject.repository.AccountRepository;
+import BankProject.repository.ClientRepository;
 import BankProject.repository.TransactionRepository;
 import BankProject.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +26,12 @@ public class JpaAccountService implements AccountService {
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    ClientRepository clientRepository;
+
     @Override
     public List<JpaAccount> findAll() {
         return accountRepository.findAll();
-    }
-
-    @Override
-    public List<JpaAccount> findByClientId(int clientId) {
-        List<JpaAccount> accounts = new ArrayList<>();
-        accountRepository.findAll().stream()
-                .filter(account -> account.getClientId() == clientId)
-                .forEach(accounts::add);
-        return accounts;
     }
 
     @Override
@@ -66,16 +62,22 @@ public class JpaAccountService implements AccountService {
     @Override
     public void deposit(JpaAccount account, BigDecimal amount) {
 
+        int type = 1;
+
         BigDecimal balance = account.getBalance();
         balance = balance.add(amount);
         account.setBalance(balance);
-        JpaTransaction transaction = new JpaTransaction();
         accountRepository.save(account);
-        transactionRepository.save(transaction);
+        transactionRepository.save(
+                new JpaTransaction(
+                )
+        );
     }
 
     @Override
     public void withdraw(JpaAccount account, BigDecimal amount) {
+
+        int type = 2;
 
         BigDecimal balance = account.getBalance();
         if (balance.compareTo(amount) < 0) {
@@ -84,36 +86,35 @@ public class JpaAccountService implements AccountService {
         balance = balance.subtract(amount);
         account.setBalance(balance);
 
-        JpaTransaction transaction = new JpaTransaction();
-
         accountRepository.save(account);
-        transactionRepository.save(transaction);
-
+        transactionRepository.save(
+                new JpaTransaction(
+                )
+        );
     }
 
     @Override
     public void transfer(JpaAccount from, JpaAccount to, BigDecimal amount) {
 
-        if (from.getId().equals(to.getId())) {
-            throw new IllegalArgumentException("Cannot transfer to the same account");
-        }
+        int type = 3;
 
         BigDecimal fromBalance = from.getBalance();
+        BigDecimal toBalance = to.getBalance();
+
         if (fromBalance.compareTo(amount) < 0) {
             throw new IllegalArgumentException("Insufficient funds");
         }
-        fromBalance = fromBalance.subtract(amount);
-        from.setBalance(fromBalance);
+
+        from.setBalance(fromBalance.subtract(amount));
+        to.setBalance(toBalance.add(amount));
+
         accountRepository.save(from);
 
-        BigDecimal toBalance = to.getBalance();
-        toBalance = toBalance.add(amount);
-        to.setBalance(toBalance);
         accountRepository.save(to);
 
-        JpaTransaction transaction = new JpaTransaction();
-
-        transactionRepository.save(transaction);
+        transactionRepository.save(
+                new JpaTransaction()
+        );
+    }
 
     }
-}
