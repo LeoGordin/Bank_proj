@@ -1,13 +1,11 @@
 package BankProject.serviceTest;
 
-import BankProject.domain.entity.jpa.JpaClient;
+import BankProject.domain.entity.Client;
 import BankProject.repository.ClientRepository;
-import BankProject.service.jpa.JpaClientService;
+import BankProject.service.ClientService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,23 +14,22 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class JpaClientServiceTest {
+public class ClientServiceTest {
 
     @Mock
     private ClientRepository clientRepository;
 
     @InjectMocks
-    private JpaClientService jpaClientService;
+    private ClientService clientService;
 
     @Test
     public void testFindAll() {
         // Arrange
-        List<JpaClient> expectedClients = Arrays.asList(new JpaClient(), new JpaClient());
+        List<Client> expectedClients = Arrays.asList(new Client(), new Client());
         when(clientRepository.findAll()).thenReturn(expectedClients);
 
         // Act
-        List<JpaClient> actualClients = jpaClientService.findAll();
+        List<Client> actualClients = clientService.findAll();
 
         // Assert
         assertEquals(expectedClients, actualClients);
@@ -43,11 +40,11 @@ public class JpaClientServiceTest {
     public void testGetById() {
         // Arrange
         int id = 1;
-        JpaClient expectedClient = new JpaClient();
+        Client expectedClient = new Client();
         when(clientRepository.findById(id)).thenReturn(Optional.of(expectedClient));
 
         // Act
-        JpaClient actualClient = jpaClientService.getById(id);
+        Client actualClient = clientService.getById(id);
 
         // Assert
         assertEquals(expectedClient, actualClient);
@@ -57,10 +54,10 @@ public class JpaClientServiceTest {
     @Test
     public void testAddClient() {
         // Arrange
-        JpaClient client = new JpaClient();
+        Client client = new Client();
 
         // Act
-        jpaClientService.addClient(client);
+        clientService.addClient(client);
 
         // Assert
         verify(clientRepository, times(1)).save(client);
@@ -69,10 +66,10 @@ public class JpaClientServiceTest {
     @Test
     public void testDeleteClient() {
         // Arrange
-        JpaClient client = new JpaClient();
+        Client client = new Client();
 
         // Act
-        jpaClientService.deleteClient(client);
+        clientService.deleteClient(client);
 
         // Assert
         verify(clientRepository, times(1)).delete(client);
@@ -81,10 +78,10 @@ public class JpaClientServiceTest {
     @Test
     public void testUpdateClient() {
         // Arrange
-        JpaClient client = new JpaClient();
+        Client client = new Client();
 
         // Act
-        jpaClientService.updateClient(client);
+        clientService.updateClient(client);
 
         // Assert
         verify(clientRepository, times(1)).saveAndFlush(client);

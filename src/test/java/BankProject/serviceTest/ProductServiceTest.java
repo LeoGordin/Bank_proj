@@ -9,32 +9,29 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import BankProject.domain.entity.jpa.JpaProduct;
+import BankProject.domain.entity.Product;
 import BankProject.repository.ProductRepository;
-import BankProject.service.jpa.JpaProductService;
+import BankProject.service.ProductService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
-public class JpaProductServiceTest {
+public class ProductServiceTest {
 
     @Mock
     private ProductRepository productRepository;
 
     @InjectMocks
-    private JpaProductService jpaProductService;
+    private ProductService productService;
 
     @Test
     public void testFindAll() {
         // Arrange
-        List<JpaProduct> expectedProducts = Arrays.asList(new JpaProduct(), new JpaProduct());
+        List<Product> expectedProducts = Arrays.asList(new Product(), new Product());
         when(productRepository.findAll()).thenReturn(expectedProducts);
 
         // Act
-        List<JpaProduct> actualProducts = jpaProductService.findAll();
+        List<Product> actualProducts = productService.findAll();
 
         // Assert
         assertEquals(expectedProducts, actualProducts);
@@ -44,13 +41,13 @@ public class JpaProductServiceTest {
     @Test
     public void testGetById() {
         // Arrange
-        JpaProduct expectedProduct = new JpaProduct();
+        Product expectedProduct = new Product();
         int productId = 1;
         expectedProduct.setId(productId);
         when(productRepository.findById(productId)).thenReturn(Optional.of(expectedProduct));
 
         // Act
-        JpaProduct actualProduct = jpaProductService.getById(productId);
+        Product actualProduct = productService.getById(productId);
 
         // Assert
         assertEquals(expectedProduct, actualProduct);
@@ -60,10 +57,10 @@ public class JpaProductServiceTest {
     @Test
     public void testAddProduct() {
         // Arrange
-        JpaProduct product = new JpaProduct();
+        Product product = new Product();
 
         // Act
-        jpaProductService.addProduct(product);
+        productService.addProduct(product);
 
         // Assert
         verify(productRepository, times(1)).save(product);
@@ -72,10 +69,10 @@ public class JpaProductServiceTest {
     @Test
     public void testUpdateProduct() {
         // Arrange
-        JpaProduct product = new JpaProduct();
+        Product product = new Product();
 
         // Act
-        jpaProductService.updateProduct(product);
+        productService.updateProduct(product);
 
         // Assert
         verify(productRepository, times(1)).saveAndFlush(product);
@@ -84,10 +81,10 @@ public class JpaProductServiceTest {
     @Test
     public void testDeleteProduct() {
         // Arrange
-        JpaProduct product = new JpaProduct();
+        Product product = new Product();
 
         // Act
-        jpaProductService.deleteProduct(product);
+        productService.deleteProduct(product);
 
         // Assert
         verify(productRepository, times(1)).delete(product);

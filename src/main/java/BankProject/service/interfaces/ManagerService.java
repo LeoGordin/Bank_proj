@@ -1,19 +1,18 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.interfaces.Manager;
-import BankProject.domain.entity.jpa.JpaManager;
+import BankProject.domain.entity.Manager;
 
 import java.util.List;
 
 public interface ManagerService {
 
-    List<JpaManager> findAll();
+    List<Manager> findAll();
 
-    JpaManager getById(int id);
+    Manager getById(int id);
 
-    void addManager(JpaManager manager);
+    void addManager(Manager manager);
 
-    void updateManager(JpaManager manager);
+    void updateManager(Manager manager);
 
-    void deleteManager(JpaManager manager);
+    void deleteManager(Manager manager);
 }

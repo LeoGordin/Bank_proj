@@ -1,10 +1,8 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
-import BankProject.domain.entity.interfaces.Transaction;
+import BankProject.domain.entity.interfaces.TransactionInterface;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -14,8 +12,7 @@ import java.util.UUID;
 @Table(name = "transaction")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-public class JpaTransaction implements Transaction {
+public class Transaction implements TransactionInterface {
 
     @Column(name = "id")
     @Id
@@ -29,7 +26,7 @@ public class JpaTransaction implements Transaction {
     private UUID debitAccountId;
 
     @Column(name = "type")
-    private int type;
+    private int type; // TODO enum type (1 = withdraw, 2 = deposit, 3 = transfer)
 
     @Column(name = "amount")
     private BigDecimal amount;
@@ -42,7 +39,7 @@ public class JpaTransaction implements Transaction {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private JpaClient client;
+    private Client client;
 
 
     @Override
@@ -80,15 +77,19 @@ public class JpaTransaction implements Transaction {
         return createdAt;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public void setCreditAccountId(UUID creditAccountId) {
         this.creditAccountId = creditAccountId;
     }
 
-    public void setCreatedAt(Timestamp timestamp) {
-        this.createdAt = timestamp;
-    }
-
-    public void setClient(JpaClient client) {
-        this.client = client;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }

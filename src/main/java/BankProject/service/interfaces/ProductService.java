@@ -1,19 +1,18 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.interfaces.Product;
-import BankProject.domain.entity.jpa.JpaProduct;
+import BankProject.domain.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<JpaProduct> findAll();
+    List<Product> findAll();
 
-    JpaProduct getById(int id);
+    Product getById(int id);
 
-    void addProduct(JpaProduct product);
+    void addProduct(Product product);
 
-    void updateProduct(JpaProduct product);
+    void updateProduct(Product product);
 
-    void deleteProduct(JpaProduct product);
+    void deleteProduct(Product product);
 }

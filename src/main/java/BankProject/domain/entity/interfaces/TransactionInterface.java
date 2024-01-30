@@ -10,7 +10,7 @@ import java.util.UUID;
  * @version 1.0.0
  */
 
-public interface Transaction {
+public interface TransactionInterface {
 
     /**
      * Retrieves ID of the transaction

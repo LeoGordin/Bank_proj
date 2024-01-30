@@ -1,10 +1,9 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
-import BankProject.domain.entity.interfaces.Agreement;
+import BankProject.domain.entity.interfaces.AgreementInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -14,7 +13,7 @@ import java.util.UUID;
 @Table(name = "agreement")
 @NoArgsConstructor
 @AllArgsConstructor
-public class JpaAgreement implements Agreement {
+public class Agreement implements AgreementInterface {
 
     @Id
     @GeneratedValue
@@ -23,15 +22,15 @@ public class JpaAgreement implements Agreement {
 
     @ManyToOne
     @JoinColumn(name = "account_id")
-    private JpaAccount account;
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private JpaProduct product;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private JpaClient client;
+    private Client client;
 
     @Column(name = "interest_rate")
     private float interestRate;
@@ -106,11 +105,9 @@ public class JpaAgreement implements Agreement {
         return client.getId();
     }
 
-    public void setClient(JpaClient client) {
+    @Override
+    public void setClient(Client client) {
         this.client = client;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 }

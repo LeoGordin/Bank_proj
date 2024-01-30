@@ -1,8 +1,9 @@
 package BankProject.controller;
 
 
-import BankProject.domain.entity.jpa.JpaTransaction;
-import BankProject.service.jpa.JpaTransactionService;
+import BankProject.domain.entity.Client;
+import BankProject.domain.entity.Transaction;
+import BankProject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,26 +19,26 @@ import java.util.UUID;
 public class TransactionController {
 
     @Autowired
-    JpaTransactionService transactionService;
+    TransactionService transactionService;
 
-    @GetMapping
-    public List<JpaTransaction> getAll() {
+    @GetMapping("/all")
+    public List<Transaction> getAll() {
         return transactionService.findAll();
     }
 
     @GetMapping("/{id}")
-    public JpaTransaction getById(@PathVariable UUID id) {
+    public Transaction getById(@PathVariable UUID id) {
         return transactionService.getById(id);
     }
 
     @GetMapping("/account/{accountId}")
-    public List<JpaTransaction> getTransactions(@PathVariable UUID accountId, Timestamp from, Timestamp to) {
+    public List<Transaction> getTransactions(@PathVariable UUID accountId, Timestamp from, Timestamp to) {
         return transactionService.getTransactionsByAccount(accountId, from, to);
     }
 
     @GetMapping("/client/{clientId}")
-    public List<JpaTransaction> getTransactions(@PathVariable int clientId, Timestamp from, Timestamp to) {
-        return transactionService.getTransactionsByClient(clientId, from, to);
+    public List<Transaction> getTransactions(@PathVariable Client client, Timestamp from, Timestamp to) {
+        return transactionService.getTransactionsByClient(client, from, to);
     }
 
 }

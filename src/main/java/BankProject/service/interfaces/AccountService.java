@@ -1,34 +1,33 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.interfaces.Transaction;
-import BankProject.domain.entity.jpa.JpaAccount;
-import BankProject.domain.entity.jpa.JpaTransaction;
+import BankProject.domain.entity.Account;
 
 import java.math.BigDecimal;
-import java.security.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
 
 public interface AccountService {
 
-    List<JpaAccount> findAll();
+    List<Account> findAll();
 
-    JpaAccount findById(UUID id);
+    Account findById(UUID id);
 
-    void createAccount(JpaAccount account);
+    void createAccount(Account account);
 
-    void deleteAccount(JpaAccount account);
+    void deleteAccount(Account account);
 
-    void updateAccount(JpaAccount account);
+    void deleteAccountById(UUID id);
 
-    BigDecimal getBalance(JpaAccount account);
+    void updateAccount(Account account);
 
-    void deposit(JpaAccount account, BigDecimal amount);
+    BigDecimal getBalance(Account account);
 
-    void withdraw(JpaAccount account, BigDecimal amount);
+    void deposit(Account account, BigDecimal amount);
 
-    void transfer(JpaAccount from, JpaAccount to, BigDecimal amount);
+    void withdraw(Account account, BigDecimal amount);
+
+    void transfer(Account from, Account to, BigDecimal amount);
 
 
 }

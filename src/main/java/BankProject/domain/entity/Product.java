@@ -1,6 +1,6 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
-import BankProject.domain.entity.interfaces.Product;
+import BankProject.domain.entity.interfaces.ProductInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class JpaProduct implements Product {
+public class Product implements ProductInterface {
 
     @Column(name = "id")
     @Id
@@ -23,19 +23,19 @@ public class JpaProduct implements Product {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "manager_id")
-    private JpaManager manager;
+    private Manager manager;
 
     @OneToOne(mappedBy = "product")
-    private JpaAccount account;
+    private Account account;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "status")
-    private int status;
+    private int status; // TODO enum status (1 = active, 0 = redundant)
 
     @Column(name = "currency_code")
-    private int currencyCode;
+    private int currencyCode; //TODO enum (1 = USD, 2 = EUR, 3 = CHF, 4 = CNY, 0 = ALL)
 
     @Column(name = "interest_rate")
     private BigDecimal interestRate;
@@ -92,9 +92,5 @@ public class JpaProduct implements Product {
     @Override
     public Timestamp getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setId(int productId) {
-        this.id = productId;
     }
 }

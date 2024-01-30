@@ -1,7 +1,7 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.jpa.JpaManager;
-import BankProject.service.jpa.JpaManagerService;
+import BankProject.domain.entity.Manager;
+import BankProject.service.ManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,30 +12,30 @@ import java.util.List;
 public class ManagerController {
 
     @Autowired
-    JpaManagerService managerService;
+    ManagerService managerService;
 
-    @GetMapping
-    public List<JpaManager> getAll() {
+    @GetMapping("/all")
+    public List<Manager> getAll() {
         return managerService.findAll();
     }
 
     @GetMapping("/{id}")
-    public JpaManager getById(@PathVariable int id) {
+    public Manager getById(@PathVariable int id) {
         return managerService.getById(id);
     }
 
-    @PostMapping
-    public void addManager(@RequestBody JpaManager manager) {
+    @PostMapping("/new")
+    public void addManager(@RequestBody Manager manager) {
         managerService.addManager(manager);
     }
 
-    @PutMapping
-    public void updateManager(@RequestBody JpaManager manager) {
+    @PutMapping("/update")
+    public void updateManager(@RequestBody Manager manager) {
         managerService.updateManager(manager);
     }
 
-    @DeleteMapping
-    public void deleteManager(@RequestBody JpaManager manager) {
+    @DeleteMapping("/delete")
+    public void deleteManager(@RequestBody Manager manager) {
         managerService.deleteManager(manager);
     }
 }

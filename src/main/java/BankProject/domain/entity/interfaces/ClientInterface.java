@@ -1,13 +1,12 @@
 package BankProject.domain.entity.interfaces;
 
-import BankProject.domain.entity.jpa.JpaAccount;
-import BankProject.domain.entity.jpa.JpaAgreement;
-import BankProject.domain.entity.jpa.JpaManager;
-import BankProject.domain.entity.jpa.JpaTransaction;
+import BankProject.domain.entity.Account;
+import BankProject.domain.entity.Agreement;
+import BankProject.domain.entity.Manager;
+import BankProject.domain.entity.Transaction;
 
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Interface for Bank Client
@@ -15,7 +14,7 @@ import java.util.UUID;
  * @version 1.0.0
  */
 
-public interface Client {
+public interface ClientInterface {
 
     /**
      * Retrieves ID of a client
@@ -99,27 +98,27 @@ public interface Client {
      *
      * @return @JpaManager of @JpaClient
      */
-    JpaManager getManager();
+    Manager getManager();
 
     /**
      * Retrieves list of client's accounts
      *
      * @return list of @JpaAccount of @JpaClient
      */
-    List<JpaAccount> getAccounts();
+    List<Account> getAccounts();
 
     /**
      * Retrieves list of client's agreements
      *
      * @return list of @JpaAgreement of @JpaClient
      */
-    List<JpaAgreement> getAgreements();
+    List<Agreement> getAgreements();
 
     /**
      * Retrieves list of client's transactions
      *
      * @return list of @JpaTransaction of @JpaClient
      */
-    List<JpaTransaction> getTransactions();
+    List<Transaction> getTransactions();
 
 }

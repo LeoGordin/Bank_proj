@@ -1,42 +1,41 @@
-package BankProject.service.jpa;
+package BankProject.service;
 
-import BankProject.domain.entity.jpa.JpaProduct;
+import BankProject.domain.entity.Product;
 import BankProject.repository.ProductRepository;
-import BankProject.service.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class JpaProductService implements ProductService {
+public class ProductService implements BankProject.service.interfaces.ProductService {
 
     @Autowired
     ProductRepository productRepository;
 
 
     @Override
-    public List<JpaProduct> findAll() {
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
     @Override
-    public JpaProduct getById(int id) {
+    public Product getById(int id) {
         return productRepository.findById(id).orElse(null);
     }
 
     @Override
-    public void addProduct(JpaProduct product) {
+    public void addProduct(Product product) {
         productRepository.save(product);
     }
 
     @Override
-    public void updateProduct(JpaProduct product) {
+    public void updateProduct(Product product) {
         productRepository.saveAndFlush(product);
     }
 
     @Override
-    public void deleteProduct(JpaProduct product) {
+    public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
 }

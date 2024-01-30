@@ -1,11 +1,9 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
 import BankProject.domain.entity.interfaces.*;
-import BankProject.domain.entity.interfaces.Manager;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -14,7 +12,7 @@ import java.util.List;
 @Table(name = "client")
 @NoArgsConstructor
 @AllArgsConstructor
-public class JpaClient implements Client {
+public class Client implements ClientInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +21,10 @@ public class JpaClient implements Client {
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    private JpaManager manager;
+    private Manager manager;
 
     @Column(name = "status")
-    private int status;
+    private int status; //TODO enum status (1 = regular, 2 = vip, 0 = inactive / deleted)
 
     @Column(name = "tax_code")
     private String taxCode;
@@ -52,14 +50,17 @@ public class JpaClient implements Client {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "client")
-    private List<JpaAccount> accounts;
+    @Column(name = "role")
+    Role role;
 
     @OneToMany(mappedBy = "client")
-    private List<JpaTransaction> transactions;
+    private List<Account> accounts;
 
     @OneToMany(mappedBy = "client")
-    private List<JpaAgreement> agreements;
+    private List<Transaction> transactions;
+
+    @OneToMany(mappedBy = "client")
+    private List<Agreement> agreements;
 
 
     @Override
@@ -118,22 +119,22 @@ public class JpaClient implements Client {
     }
 
     @Override
-    public JpaManager getManager() {
+    public Manager getManager() {
         return manager;
     }
 
     @Override
-    public List<JpaAccount> getAccounts() {
+    public List<Account> getAccounts() {
         return accounts;
     }
 
     @Override
-    public List<JpaAgreement> getAgreements() {
+    public List<Agreement> getAgreements() {
         return agreements;
     }
 
     @Override
-    public List<JpaTransaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 }

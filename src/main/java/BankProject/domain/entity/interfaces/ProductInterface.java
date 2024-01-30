@@ -3,7 +3,7 @@ package BankProject.domain.entity.interfaces;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
-public interface Product {
+public interface ProductInterface {
 
     /**
      * Retrieves ID of a product

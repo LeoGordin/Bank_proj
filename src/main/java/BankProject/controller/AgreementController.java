@@ -1,7 +1,7 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.jpa.JpaAgreement;
-import BankProject.service.jpa.JpaAgreementService;
+import BankProject.domain.entity.Agreement;
+import BankProject.service.AgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,21 +13,21 @@ import java.util.UUID;
 public class AgreementController {
 
     @Autowired
-    JpaAgreementService agreementService;
+    AgreementService agreementService;
 
 
     @GetMapping("/all")
-    public List<JpaAgreement> getAll() {
+    public List<Agreement> getAll() {
         return agreementService.findAll();
     }
 
     @GetMapping("/{clientId}")
-    public List<JpaAgreement> getByClientId(@PathVariable int clientId) {
+    public List<Agreement> getByClientId(@PathVariable int clientId) {
         return agreementService.getByClientId(clientId);
     }
 
     @GetMapping("/{id}")
-    public JpaAgreement getById(@PathVariable UUID id) {
+    public Agreement getById(@PathVariable UUID id) {
         return agreementService.getById(id);
     }
 
@@ -37,18 +37,18 @@ public class AgreementController {
         agreementService.removeAgreement(agreementService.getById(id));
     }
 
-    @PostMapping
-    public void createAgreement(@RequestBody JpaAgreement agreement) {
+    @PostMapping("/create")
+    public void createAgreement(@RequestBody Agreement agreement) {
         agreementService.createAgreement(agreement);
     }
 
-    @DeleteMapping
-    public void removeAgreement(@RequestBody JpaAgreement agreement) {
+    @DeleteMapping("/delete")
+    public void removeAgreement(@RequestBody Agreement agreement) {
         agreementService.removeAgreement(agreement);
     }
 
-    @PutMapping
-    public void updateAgreement(@RequestBody JpaAgreement agreement) {
+    @PutMapping("/update")
+    public void updateAgreement(@RequestBody Agreement agreement) {
         agreementService.updateAgreement(agreement);
     }
 }

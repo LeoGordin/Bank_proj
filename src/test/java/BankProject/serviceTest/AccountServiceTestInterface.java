@@ -1,11 +1,11 @@
 package BankProject.serviceTest;
 
-import BankProject.domain.entity.jpa.JpaAccount;
-import BankProject.domain.entity.jpa.JpaTransaction;
+import BankProject.domain.entity.Account;
+import BankProject.domain.entity.Transaction;
 import BankProject.repository.AccountRepository;
-import BankProject.repository.ClientRepository;
 import BankProject.repository.TransactionRepository;
-import BankProject.service.jpa.JpaAccountService;
+import BankProject.service.AccountService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class JpaAccountServiceTest {
+public class AccountServiceTestInterface {
 
     @Mock
     private AccountRepository accountRepository;
@@ -26,11 +26,8 @@ public class JpaAccountServiceTest {
     @Mock
     private TransactionRepository transactionRepository;
 
-    @Mock
-    private ClientRepository clientRepository;
-
     @InjectMocks
-    private JpaAccountService accountService;
+    private AccountService accountService;
 
     @BeforeEach
     public void setup() {
@@ -40,11 +37,11 @@ public class JpaAccountServiceTest {
     @Test
     public void testFindAll() {
         // Arrange
-        List<JpaAccount> expectedAccounts = Arrays.asList(new JpaAccount(), new JpaAccount());
+        List<Account> expectedAccounts = Arrays.asList(new Account(), new Account());
         when(accountRepository.findAll()).thenReturn(expectedAccounts);
 
         // Act
-        List<JpaAccount> actualAccounts = accountService.findAll();
+        List<Account> actualAccounts = accountService.findAll();
 
         // Assert
         assertEquals(expectedAccounts, actualAccounts);
@@ -55,11 +52,11 @@ public class JpaAccountServiceTest {
     public void testFindById() {
         // Arrange
         UUID accountId = UUID.randomUUID();
-        JpaAccount expectedAccount = new JpaAccount();
+        Account expectedAccount = new Account();
         when(accountRepository.findById(accountId)).thenReturn(Optional.of(expectedAccount));
 
         // Act
-        JpaAccount actualAccount = accountService.findById(accountId);
+        Account actualAccount = accountService.findById(accountId);
 
         // Assert
         assertEquals(expectedAccount, actualAccount);
@@ -69,19 +66,21 @@ public class JpaAccountServiceTest {
     @Test
     public void testCreateAccount() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
+        UUID id = account.getId();
 
         // Act
         accountService.createAccount(account);
 
         // Assert
         verify(accountRepository, times(1)).save(account);
+        Assertions.assertEquals(id, account.getId());
     }
 
     @Test
     public void testDeleteAccount() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
 
         // Act
         accountService.deleteAccount(account);
@@ -91,9 +90,32 @@ public class JpaAccountServiceTest {
     }
 
     @Test
+    public void testDeleteAccountById() {
+        // Arrange
+        Account accountOne = new Account();
+        Account accountTwo = new Account();
+
+        UUID idOne = accountOne.getId();
+        UUID idTwo = accountTwo.getId();
+
+        List<Account> accounts = Arrays.asList(accountOne, accountTwo);
+        when(accountRepository.findAll()).thenReturn(accounts);
+
+        // Act
+        accountService.deleteAccountById(idOne);
+
+        // Assert
+
+        verify(accountRepository, times(1)).deleteById(idOne);
+        Assertions.assertTrue(accounts.contains(accountTwo));
+        Assertions.assertFalse(accounts.contains(accountOne));
+
+    }
+
+    @Test
     public void testUpdateAccount() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
 
         // Act
         accountService.updateAccount(account);
@@ -105,7 +127,7 @@ public class JpaAccountServiceTest {
     @Test
     public void testGetBalance() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
         account.setBalance(BigDecimal.valueOf(100.0));
 
         // Act
@@ -118,7 +140,7 @@ public class JpaAccountServiceTest {
     @Test
     public void testDeposit() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
         account.setBalance(BigDecimal.valueOf(0.0));
         BigDecimal amount = BigDecimal.valueOf(100.0);
 
@@ -128,13 +150,13 @@ public class JpaAccountServiceTest {
         // Assert
         assertEquals(BigDecimal.valueOf(100.0), account.getBalance());
         verify(accountRepository, times(1)).save(account);
-        verify(transactionRepository, times(1)).save(any(JpaTransaction.class));
+        verify(transactionRepository, times(1)).save(any(Transaction.class));
     }
 
     @Test
     public void testWithdraw() {
         // Arrange
-        JpaAccount account = new JpaAccount();
+        Account account = new Account();
         account.setBalance(BigDecimal.valueOf(100.0));
         BigDecimal amount = BigDecimal.valueOf(50.0);
 
@@ -144,14 +166,14 @@ public class JpaAccountServiceTest {
         // Assert
         assertEquals(BigDecimal.valueOf(50.0), account.getBalance());
         verify(accountRepository, times(1)).save(account);
-        verify(transactionRepository, times(1)).save(any(JpaTransaction.class));
+        verify(transactionRepository, times(1)).save(any(Transaction.class));
     }
 
     @Test
     public void testTransfer() {
         // Arrange
-        JpaAccount from = new JpaAccount();
-        JpaAccount to = new JpaAccount();
+        Account from = new Account();
+        Account to = new Account();
         from.setBalance(BigDecimal.valueOf(100.0));
         to.setBalance(BigDecimal.valueOf(0.0));
         BigDecimal amount = BigDecimal.valueOf(50.0);
@@ -162,8 +184,8 @@ public class JpaAccountServiceTest {
         // Assert
         assertEquals(BigDecimal.valueOf(50.0), from.getBalance());
         assertEquals(BigDecimal.valueOf(50.0), to.getBalance());
-        verify(accountRepository, times(2)).save(any(JpaAccount.class));
-        verify(transactionRepository, times(1)).save(any(JpaTransaction.class));
+        verify(accountRepository, times(2)).save(any(Account.class));
+        verify(transactionRepository, times(1)).save(any(Transaction.class));
     }
 
 }

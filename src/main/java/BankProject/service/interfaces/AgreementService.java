@@ -1,26 +1,24 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.interfaces.Agreement;
-import BankProject.domain.entity.jpa.JpaAgreement;
-import BankProject.repository.AgreementRepository;
+import BankProject.domain.entity.Agreement;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AgreementService {
 
-    List<JpaAgreement> findAll();
+    List<Agreement> findAll();
 
-    List<JpaAgreement> getByClientId(int clientId);
+    List<Agreement> getByClientId(int clientId);
 
-    JpaAgreement getById(UUID id);
+    Agreement getById(UUID id);
 
     void removeById(UUID id);
 
-    void createAgreement(JpaAgreement agreement);
+    void createAgreement(Agreement agreement);
 
-    void removeAgreement(JpaAgreement agreement);
+    void removeAgreement(Agreement agreement);
 
-    void updateAgreement(JpaAgreement agreement);
+    void updateAgreement(Agreement agreement);
     
 }

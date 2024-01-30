@@ -1,7 +1,6 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.jpa.JpaProduct;
-import BankProject.service.jpa.JpaProductService;
+import BankProject.domain.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,30 +11,30 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    JpaProductService ProductService;
+    BankProject.service.ProductService ProductService;
 
-    @GetMapping
-    public List<JpaProduct> getAll(){
+    @GetMapping("/all")
+    public List<Product> getAll(){
         return ProductService.findAll();
     }
 
     @GetMapping("/{id}")
-    public JpaProduct getById(int id){
+    public Product getById(int id){
         return ProductService.getById(id);
     }
 
-    @PostMapping
-    public void addProduct(@RequestBody JpaProduct product){
+    @PostMapping("/new")
+    public void addProduct(@RequestBody Product product){
         ProductService.addProduct(product);
     }
 
-    @PutMapping
-    public void updateProduct(@RequestBody JpaProduct product){
+    @PutMapping("/update")
+    public void updateProduct(@RequestBody Product product){
         ProductService.updateProduct(product);
     }
 
-    @DeleteMapping
-    public void deleteProduct(@RequestBody JpaProduct product){
+    @DeleteMapping("/delete")
+    public void deleteProduct(@RequestBody Product product){
         ProductService.deleteProduct(product);
     }
 

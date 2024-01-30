@@ -1,6 +1,6 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
-import BankProject.domain.entity.interfaces.Account;
+import BankProject.domain.entity.interfaces.AccountInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class JpaAccount implements Account {
+public class Account implements AccountInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,23 +24,26 @@ public class JpaAccount implements Account {
 
     @ManyToOne
     @JoinColumn(name = "client_id")
-    private JpaClient client;
+    private Client client;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
-    private JpaProduct product;
+    private Product product;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "status")
-    private int status;
+    private int status; // TODO enum status (1 = active, 0 = blocked)
+
+    @Column(name = "type")
+    private int type; // TODO enum status (1 = regular, 2 = savings, 3 = investment)
 
     @Column(name = "balance")
     private BigDecimal balance;
 
     @Column(name = "currency_code")
-    private int currencyCode;
+    private int currencyCode; //TODO enum (1 = USD, 2 = EUR, 3 = CHF, 4 = CNY)
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -62,6 +64,16 @@ public class JpaAccount implements Account {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
+    @Override
+    public void setType(int type) {
+        this.type = type;
     }
 
     @Override
@@ -99,7 +111,8 @@ public class JpaAccount implements Account {
         this.balance = balance;
     }
 
-    public JpaClient getClient() {
+    @Override
+    public Client getClient() {
         return client;
     }
 }

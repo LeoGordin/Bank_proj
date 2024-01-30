@@ -1,25 +1,20 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.interfaces.Account;
-import BankProject.domain.entity.interfaces.Agreement;
-import BankProject.domain.entity.interfaces.Client;
-import BankProject.domain.entity.interfaces.Product;
-import BankProject.domain.entity.jpa.JpaClient;
+import BankProject.domain.entity.Client;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface ClientService {
 
-    List<JpaClient> findAll();
+    List<Client> findAll();
 
-    JpaClient getById(int id);
+    Client getById(int id);
 
-    void addClient(JpaClient client);
+    void addClient(Client client);
 
-    void deleteClient(JpaClient client);
+    void deleteClient(Client client);
 
-    void updateClient(JpaClient client);
+    void updateClient(Client client);
 
 
 }

@@ -1,13 +1,11 @@
 package BankProject.serviceTest;
 
-import BankProject.domain.entity.jpa.JpaManager;
+import BankProject.domain.entity.Manager;
 import BankProject.repository.ManagerRepository;
-import BankProject.service.jpa.JpaManagerService;
+import BankProject.service.ManagerService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,23 +14,22 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-@RunWith(MockitoJUnitRunner.class)
-public class JpaManagerServiceTest {
+public class ManagerServiceTest {
 
     @Mock
     private ManagerRepository managerRepository;
 
     @InjectMocks
-    private JpaManagerService jpaManagerService;
+    private ManagerService managerService;
 
     @Test
     public void testFindAll() {
         // Arrange
-        List<JpaManager> expectedManagers = Arrays.asList(new JpaManager(), new JpaManager());
+        List<Manager> expectedManagers = Arrays.asList(new Manager(), new Manager());
         when(managerRepository.findAll()).thenReturn(expectedManagers);
 
         // Act
-        List<JpaManager> actualManagers = jpaManagerService.findAll();
+        List<Manager> actualManagers = managerService.findAll();
 
         // Assert
         assertEquals(expectedManagers, actualManagers);
@@ -43,11 +40,11 @@ public class JpaManagerServiceTest {
     public void testGetById() {
         // Arrange
         int managerId = 1;
-        JpaManager expectedManager = new JpaManager();
+        Manager expectedManager = new Manager();
         when(managerRepository.findById(managerId)).thenReturn(Optional.of(expectedManager));
 
         // Act
-        JpaManager actualManager = jpaManagerService.getById(managerId);
+        Manager actualManager = managerService.getById(managerId);
 
         // Assert
         assertEquals(expectedManager, actualManager);
@@ -57,10 +54,10 @@ public class JpaManagerServiceTest {
     @Test
     public void testAddManager() {
         // Arrange
-        JpaManager manager = new JpaManager();
+        Manager manager = new Manager();
 
         // Act
-        jpaManagerService.addManager(manager);
+        managerService.addManager(manager);
 
         // Assert
         verify(managerRepository, times(1)).save(manager);
@@ -69,10 +66,10 @@ public class JpaManagerServiceTest {
     @Test
     public void testUpdateManager() {
         // Arrange
-        JpaManager manager = new JpaManager();
+        Manager manager = new Manager();
 
         // Act
-        jpaManagerService.updateManager(manager);
+        managerService.updateManager(manager);
 
         // Assert
         verify(managerRepository, times(1)).saveAndFlush(manager);
@@ -81,10 +78,10 @@ public class JpaManagerServiceTest {
     @Test
     public void testDeleteManager() {
         // Arrange
-        JpaManager manager = new JpaManager();
+        Manager manager = new Manager();
 
         // Act
-        jpaManagerService.deleteManager(manager);
+        managerService.deleteManager(manager);
 
         // Assert
         verify(managerRepository, times(1)).delete(manager);

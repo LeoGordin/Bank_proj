@@ -1,9 +1,9 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.Client;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,7 +12,7 @@ import java.util.UUID;
  * @version 1.0.0
  */
 
-public interface Agreement {
+public interface AgreementInterface {
 
     /**
      * Returns ID of the agreement (between Bank and Client)
@@ -85,4 +85,6 @@ public interface Agreement {
 
 
     int getClientId();
+
+    void setClient(Client client);
 }

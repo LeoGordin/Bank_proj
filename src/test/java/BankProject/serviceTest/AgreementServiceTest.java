@@ -1,11 +1,10 @@
 package BankProject.serviceTest;
 
-import BankProject.domain.entity.jpa.JpaAgreement;
-import BankProject.domain.entity.jpa.JpaClient;
+import BankProject.domain.entity.Agreement;
+import BankProject.domain.entity.Client;
 import BankProject.repository.AgreementRepository;
-import BankProject.repository.ClientRepository;
-import BankProject.service.jpa.JpaAgreementService;
-import BankProject.service.jpa.JpaClientService;
+import BankProject.service.AgreementService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,18 +18,12 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class JpaAgreementServiceTest {
+public class AgreementServiceTest {
     @Mock
     private AgreementRepository agreementRepository;
 
-    @Mock
-    private ClientRepository clientRepository;
-
     @InjectMocks
-    private JpaAgreementService agreementService;
-
-    @InjectMocks
-    private JpaClientService clientService;
+    private AgreementService agreementService;
 
     @BeforeEach
     public void setup() {
@@ -40,11 +33,11 @@ public class JpaAgreementServiceTest {
     @Test
     public void testFindAll() {
         // Arrange
-        List<JpaAgreement> expectedAgreements = new ArrayList<>();
+        List<Agreement> expectedAgreements = new ArrayList<>();
         when(agreementRepository.findAll()).thenReturn(expectedAgreements);
 
         // Act
-        List<JpaAgreement> actualAgreements = agreementService.findAll();
+        List<Agreement> actualAgreements = agreementService.findAll();
 
         // Assert
         assertEquals(expectedAgreements, actualAgreements);
@@ -54,16 +47,16 @@ public class JpaAgreementServiceTest {
     @Test
     public void testGetByClientId() {
         // Arrange
-        JpaClient client = new JpaClient();
-        List<JpaAgreement> expectedAgreements = new ArrayList<>();
-        JpaAgreement agreement = new JpaAgreement();
+        Client client = new Client();
+        List<Agreement> expectedAgreements = new ArrayList<>();
+        Agreement agreement = new Agreement();
         agreement.setClient(client);
         int clientId = client.getId();
         expectedAgreements.add(agreement);
         when(agreementRepository.findAll()).thenReturn(expectedAgreements);
 
         // Act
-        List<JpaAgreement> actualAgreements = agreementService.getByClientId(clientId);
+        List<Agreement> actualAgreements = agreementService.getByClientId(clientId);
 
         // Assert
         assertEquals(expectedAgreements, actualAgreements);
@@ -73,15 +66,15 @@ public class JpaAgreementServiceTest {
     @Test
     public void testGetById() {
         // Arrange
-        JpaAgreement expectedAgreement = new JpaAgreement();
+        Agreement expectedAgreement = new Agreement();
         UUID agreementId = UUID.randomUUID();
         expectedAgreement.setId(agreementId);
-        List<JpaAgreement> agreements = new ArrayList<>();
+        List<Agreement> agreements = new ArrayList<>();
         agreements.add(expectedAgreement);
         when(agreementRepository.findAll()).thenReturn(agreements);
 
         // Act
-        JpaAgreement actualAgreement = agreementService.getById(agreementId);
+        Agreement actualAgreement = agreementService.getById(agreementId);
 
         // Assert
         assertEquals(expectedAgreement, actualAgreement);
@@ -91,10 +84,10 @@ public class JpaAgreementServiceTest {
     @Test
     public void testRemoveById() {
         // Arrange
-        JpaAgreement agreement = new JpaAgreement();
+        Agreement agreement = new Agreement();
         UUID agreementId = UUID.randomUUID();
         agreement.setId(agreementId);
-        List<JpaAgreement> agreements = new ArrayList<>();
+        List<Agreement> agreements = new ArrayList<>();
         agreements.add(agreement);
         when(agreementRepository.findAll()).thenReturn(agreements);
 
@@ -103,13 +96,14 @@ public class JpaAgreementServiceTest {
 
         // Assert
         verify(agreementRepository, times(1)).delete(agreement);
+        Assertions.assertNull(agreementService.getById(agreementId));
     }
 
     @Test
     public void testCreateAgreement() {
 
         // Arrange
-        JpaAgreement agreement = new JpaAgreement();
+        Agreement agreement = new Agreement();
 
         // Act
         agreementService.createAgreement(agreement);
@@ -122,7 +116,7 @@ public class JpaAgreementServiceTest {
     public void testRemoveAgreement() {
 
         // Arrange
-        JpaAgreement agreement = new JpaAgreement();
+        Agreement agreement = new Agreement();
 
         // Act
         agreementService.removeAgreement(agreement);
@@ -136,7 +130,7 @@ public class JpaAgreementServiceTest {
     public void testUpdateAgreement() {
 
         // Arrange
-        JpaAgreement agreement = new JpaAgreement();
+        Agreement agreement = new Agreement();
 
         // Act
         agreementService.updateAgreement(agreement);

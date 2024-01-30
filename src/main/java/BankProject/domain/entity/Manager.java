@@ -1,5 +1,6 @@
-package BankProject.domain.entity.jpa;
+package BankProject.domain.entity;
 
+import BankProject.domain.entity.interfaces.ManagerInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(name = "manager")
 @NoArgsConstructor
 @AllArgsConstructor
-public class JpaManager implements BankProject.domain.entity.interfaces.Manager {
+public class Manager implements ManagerInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,11 +34,14 @@ public class JpaManager implements BankProject.domain.entity.interfaces.Manager 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "manager")
-    private List<JpaClient> clients;
+    @Column(name = "role")
+    private Role role;
 
     @OneToMany(mappedBy = "manager")
-    private List<JpaProduct> products;
+    private List<Client> clients;
+
+    @OneToMany(mappedBy = "manager")
+    private List<Product> products;
 
     @Override
     public int getId() {
@@ -70,12 +74,12 @@ public class JpaManager implements BankProject.domain.entity.interfaces.Manager 
     }
 
     @Override
-    public List<JpaClient> getClients() {
+    public List<Client> getClients() {
         return clients;
     }
 
     @Override
-    public List<JpaProduct> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 }

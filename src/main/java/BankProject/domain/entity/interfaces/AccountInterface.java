@@ -1,5 +1,7 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.Client;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -11,7 +13,7 @@ import java.util.UUID;
  * @Version 1.0.0
  */
 
-public interface Account {
+public interface AccountInterface {
 
     /**
      * Retrieves ID of a bank account
@@ -33,6 +35,21 @@ public interface Account {
      * @return ID of @Account
      */
     String getName();
+
+
+    /**
+     * Retrieves type of bank account
+     *
+     * @return type of @Account
+     */
+    int getType();
+
+    /**
+     * Sets type of bank account
+     *
+     * sets @ACCOUNT_TYPE of @Account
+     */
+    void setType(int type);
 
 
 
@@ -79,4 +96,7 @@ public interface Account {
     Timestamp getUpdatedAt();
 
     void setBalance(BigDecimal balance);
+
+
+    Client getClient();
 }
