@@ -1,5 +1,7 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.enums.TransactionType;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -38,7 +40,7 @@ public interface TransactionInterface {
      *
      * @return @TRANSACTION_TYPE of @Transaction
      */
-    int getType();
+    TransactionType getType();
 
     /**
      * Retrieves amount of transaction

@@ -4,6 +4,7 @@ import BankProject.domain.entity.Account;
 import BankProject.domain.entity.Agreement;
 import BankProject.domain.entity.Manager;
 import BankProject.domain.entity.Transaction;
+import BankProject.domain.entity.enums.ClientStatus;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -35,7 +36,7 @@ public interface ClientInterface {
      *
      * @return @MANAGER_STATUS of @Manager
      */
-    int getStatus();
+    ClientStatus getStatus();
 
     /**
      * Retrieves tax code of client

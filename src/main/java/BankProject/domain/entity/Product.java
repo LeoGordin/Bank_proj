@@ -1,5 +1,6 @@
 package BankProject.domain.entity;
 
+import BankProject.domain.entity.enums.Currency;
 import BankProject.domain.entity.interfaces.ProductInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,10 +33,12 @@ public class Product implements ProductInterface {
     private String name;
 
     @Column(name = "status")
-    private int status; // TODO enum status (1 = active, 0 = redundant)
+    @Enumerated(EnumType.ORDINAL)
+    private int status;
 
     @Column(name = "currency_code")
-    private int currencyCode; //TODO enum (1 = USD, 2 = EUR, 3 = CHF, 4 = CNY, 0 = ALL)
+    @Enumerated(EnumType.ORDINAL)
+    private Currency currency;
 
     @Column(name = "interest_rate")
     private BigDecimal interestRate;
@@ -70,8 +73,8 @@ public class Product implements ProductInterface {
     }
 
     @Override
-    public int getCurrencyCode() {
-        return currencyCode;
+    public Currency getCurrency() {
+        return currency;
     }
 
     @Override

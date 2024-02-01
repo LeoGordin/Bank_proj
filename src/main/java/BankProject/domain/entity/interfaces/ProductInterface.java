@@ -1,5 +1,7 @@
 package BankProject.domain.entity.interfaces;
 
+import BankProject.domain.entity.enums.Currency;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
@@ -38,7 +40,7 @@ public interface ProductInterface {
      *
      * @return @CURRENCY_CODE of @Product
      */
-    int getCurrencyCode();
+    Currency getCurrency();
 
     /**
      * Retrieves interest rate of product

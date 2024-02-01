@@ -1,5 +1,8 @@
 package BankProject.domain.entity;
 
+import BankProject.domain.entity.enums.AccountStatus;
+import BankProject.domain.entity.enums.AccountType;
+import BankProject.domain.entity.enums.Currency;
 import BankProject.domain.entity.interfaces.AccountInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,16 +37,19 @@ public class Account implements AccountInterface {
     private String name;
 
     @Column(name = "status")
-    private int status; // TODO enum status (1 = active, 0 = blocked)
+    @Enumerated(EnumType.ORDINAL)
+    private AccountStatus status;
 
     @Column(name = "type")
-    private int type; // TODO enum status (1 = regular, 2 = savings, 3 = investment)
+    @Enumerated(EnumType.ORDINAL)
+    private AccountType type;
 
     @Column(name = "balance")
     private BigDecimal balance;
 
     @Column(name = "currency_code")
-    private int currencyCode; //TODO enum (1 = USD, 2 = EUR, 3 = CHF, 4 = CNY)
+    @Enumerated(EnumType.ORDINAL)
+    private Currency currency;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -67,22 +73,22 @@ public class Account implements AccountInterface {
     }
 
     @Override
-    public int getType() {
+    public AccountType getType() {
         return type;
     }
 
     @Override
-    public void setType(int type) {
+    public void setType(AccountType type) {
         this.type = type;
     }
 
     @Override
-    public int getStatus() {
+    public AccountStatus getStatus() {
         return status;
     }
 
     @Override
-    public void setStatus(int status) {
+    public void setStatus(AccountStatus status) {
         this.status = status;
     }
 
@@ -92,8 +98,8 @@ public class Account implements AccountInterface {
     }
 
     @Override
-    public int getCurrencyCode() {
-        return currencyCode;
+    public Currency getCurrency() {
+        return currency;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package BankProject.domain.entity;
 
+import BankProject.domain.entity.enums.AgreementStatus;
+import BankProject.domain.entity.enums.Currency;
 import BankProject.domain.entity.interfaces.AgreementInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -36,13 +38,15 @@ public class Agreement implements AgreementInterface {
     private float interestRate;
 
     @Column(name = "status")
-    private int status;
+    @Enumerated(EnumType.ORDINAL)
+    private AgreementStatus status;
 
     @Column(name = "sum")
     private BigDecimal sum;
 
     @Column(name = "currency_code")
-    private String currencyCode;
+    @Enumerated(EnumType.ORDINAL)
+    private Currency currency;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -71,12 +75,12 @@ public class Agreement implements AgreementInterface {
     }
 
     @Override
-    public int getStatus() {
+    public AgreementStatus getStatus() {
         return status;
     }
 
     @Override
-    public void setStatus(int status) {
+    public void setStatus(AgreementStatus status) {
         this.status = status;
     }
 
@@ -86,8 +90,8 @@ public class Agreement implements AgreementInterface {
     }
 
     @Override
-    public String getCurrencyCode() {
-        return currencyCode;
+    public Currency getCurrency() {
+        return currency;
     }
 
     @Override

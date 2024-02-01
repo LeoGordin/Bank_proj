@@ -1,5 +1,6 @@
 package BankProject.domain.entity;
 
+import BankProject.domain.entity.enums.ClientStatus;
 import BankProject.domain.entity.interfaces.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,8 @@ public class Client implements ClientInterface {
     private Manager manager;
 
     @Column(name = "status")
-    private int status; //TODO enum status (1 = regular, 2 = vip, 0 = inactive / deleted)
+    @Enumerated(EnumType.ORDINAL)
+    private ClientStatus status;
 
     @Column(name = "tax_code")
     private String taxCode;
@@ -74,7 +76,7 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public int getStatus() {
+    public ClientStatus getStatus() {
         return status;
     }
 

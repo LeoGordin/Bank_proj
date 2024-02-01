@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(x -> x
                         .requestMatchers("/manager/**").hasRole("MANAGER")
                         .requestMatchers("/client/**").hasRole("CLIENT")
-                        .requestMatchers("/product/**").hasRole("CLIENT")
+                        .requestMatchers("/product/**").hasRole("MANAGER")
                         .requestMatchers("/transaction/**").hasRole("CLIENT")
                         .requestMatchers("/agreement/**").hasRole("CLIENT")
                         .requestMatchers("/admin/**").hasRole("ADMIN")

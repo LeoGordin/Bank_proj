@@ -1,6 +1,9 @@
 package BankProject.domain.entity.interfaces;
 
 import BankProject.domain.entity.Client;
+import BankProject.domain.entity.enums.AccountStatus;
+import BankProject.domain.entity.enums.AccountType;
+import BankProject.domain.entity.enums.Currency;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -42,14 +45,14 @@ public interface AccountInterface {
      *
      * @return type of @Account
      */
-    int getType();
+    AccountType getType();
 
     /**
      * Sets type of bank account
      *
      * sets @ACCOUNT_TYPE of @Account
      */
-    void setType(int type);
+    void setType(AccountType type);
 
 
 
@@ -58,14 +61,14 @@ public interface AccountInterface {
      *
      * @return @ACCOUNT_STATUS of @Account
      */
-    int getStatus();
+    AccountStatus getStatus();
 
     /**
      * Sets status of a bank account
      * <p>
      * sets @ACCOUNT_STATUS of @Account
      */
-    void setStatus(int status);
+    void setStatus(AccountStatus status);
 
     /**
      * Retrieves balance of a bank account
@@ -75,11 +78,11 @@ public interface AccountInterface {
     BigDecimal getBalance();
 
     /**
-     * Retrieves currency code of a bank account
+     * Retrieves currency of a bank account
      *
      * @return currency of @Account
      */
-    int getCurrencyCode();
+    Currency getCurrency();
 
     /**
      * Retrieves date and time of creation of a bank account

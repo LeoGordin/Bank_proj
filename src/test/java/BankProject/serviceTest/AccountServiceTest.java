@@ -4,7 +4,6 @@ import BankProject.domain.entity.Account;
 import BankProject.domain.entity.Transaction;
 import BankProject.repository.AccountRepository;
 import BankProject.repository.TransactionRepository;
-import BankProject.service.AccountService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +17,7 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class AccountServiceTestInterface {
+public class AccountServiceTest {
 
     @Mock
     private AccountRepository accountRepository;
@@ -27,7 +26,7 @@ public class AccountServiceTestInterface {
     private TransactionRepository transactionRepository;
 
     @InjectMocks
-    private AccountService accountService;
+    private BankProject.service.AccountService accountService;
 
     @BeforeEach
     public void setup() {

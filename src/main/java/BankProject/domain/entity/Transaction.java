@@ -1,5 +1,6 @@
 package BankProject.domain.entity;
 
+import BankProject.domain.entity.enums.TransactionType;
 import BankProject.domain.entity.interfaces.TransactionInterface;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,6 +20,7 @@ public class Transaction implements TransactionInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
+    @Setter
     @Column(name = "credit_account_id")
     private UUID creditAccountId;
 
@@ -26,7 +28,8 @@ public class Transaction implements TransactionInterface {
     private UUID debitAccountId;
 
     @Column(name = "type")
-    private int type; // TODO enum type (1 = withdraw, 2 = deposit, 3 = transfer)
+    @Enumerated(EnumType.ORDINAL)
+    private TransactionType type;
 
     @Column(name = "amount")
     private BigDecimal amount;
@@ -34,11 +37,14 @@ public class Transaction implements TransactionInterface {
     @Column(name = "description")
     private String description;
 
+    @Setter
     @Column(name = "created_at")
     private Timestamp createdAt;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
+    @Getter
+    @Setter
     private Client client;
 
 
@@ -58,7 +64,7 @@ public class Transaction implements TransactionInterface {
     }
 
     @Override
-    public int getType() {
+    public TransactionType getType() {
         return type;
     }
 
@@ -77,19 +83,4 @@ public class Transaction implements TransactionInterface {
         return createdAt;
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public void setCreditAccountId(UUID creditAccountId) {
-        this.creditAccountId = creditAccountId;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
 }
