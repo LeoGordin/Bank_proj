@@ -4,7 +4,9 @@ import BankProject.domain.entity.enums.ClientStatus;
 import BankProject.domain.entity.interfaces.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,6 +21,11 @@ public class Client implements ClientInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Column(name = "user_id")
+    @Getter
+    @Setter
+    private int userId;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
@@ -53,7 +60,9 @@ public class Client implements ClientInterface {
     private Timestamp updatedAt;
 
     @Column(name = "role")
-    Role role;
+    @Getter
+    @Setter
+    private Role role;
 
     @OneToMany(mappedBy = "client")
     private List<Account> accounts;

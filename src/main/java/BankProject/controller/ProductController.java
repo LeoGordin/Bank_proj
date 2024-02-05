@@ -1,6 +1,7 @@
 package BankProject.controller;
 
 import BankProject.domain.entity.Product;
+import BankProject.domain.entity.dto.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,27 +15,22 @@ public class ProductController {
     BankProject.service.ProductService ProductService;
 
     @GetMapping("/all")
-    public List<Product> getAll(){
+    public List<ProductDTO> getAll(){
         return ProductService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Product getById(int id){
+    public ProductDTO getById(int id){
         return ProductService.getById(id);
     }
 
-    @PostMapping("/new")
-    public void addProduct(@RequestBody Product product){
+    @PostMapping
+    public void addProduct(@RequestBody ProductDTO product){
         ProductService.addProduct(product);
     }
 
-    @PutMapping("/update")
-    public void updateProduct(@RequestBody Product product){
-        ProductService.updateProduct(product);
-    }
-
-    @DeleteMapping("/delete")
-    public void deleteProduct(@RequestBody Product product){
+    @DeleteMapping
+    public void deleteProduct(@RequestBody ProductDTO product){
         ProductService.deleteProduct(product);
     }
 

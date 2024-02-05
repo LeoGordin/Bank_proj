@@ -1,24 +1,36 @@
 package BankProject.service.interfaces;
 
 import BankProject.domain.entity.Agreement;
+import BankProject.domain.entity.dto.AgreementDTO;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AgreementService {
 
-    List<Agreement> findAll();
+    List<AgreementDTO> findAll();
 
-    List<Agreement> getByClientId(int clientId);
+    List<AgreementDTO> getByClientId(int clientId);
 
-    Agreement getById(UUID id);
+    AgreementDTO getById(UUID id);
 
     void removeById(UUID id);
 
-    void createAgreement(Agreement agreement);
+    void createAgreement(AgreementDTO agreement);
 
-    void removeAgreement(Agreement agreement);
+    void removeAgreement(AgreementDTO agreement);
 
-    void updateAgreement(Agreement agreement);
-    
+//    void updateAgreement(
+//            UUID agreementId,
+//            Account account,
+//            Product product,
+//            Client client,
+//            float interestRate,
+//            AgreementStatus status,
+//            BigDecimal sum,
+//            Currency currency,
+//            Timestamp createdAt,
+//            Timestamp updatedAt
+//    );
+
 }

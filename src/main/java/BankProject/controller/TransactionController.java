@@ -3,6 +3,7 @@ package BankProject.controller;
 
 import BankProject.domain.entity.Client;
 import BankProject.domain.entity.Transaction;
+import BankProject.domain.entity.dto.TransactionDTO;
 import BankProject.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,23 +23,22 @@ public class TransactionController {
     TransactionService transactionService;
 
     @GetMapping("/all")
-    public List<Transaction> getAll() {
+    public List<TransactionDTO> getAll() {
         return transactionService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Transaction getById(@PathVariable UUID id) {
+    public TransactionDTO getById(@PathVariable UUID id) {
         return transactionService.getById(id);
     }
 
     @GetMapping("/account/{accountId}")
-    public List<Transaction> getTransactions(@PathVariable UUID accountId, Timestamp from, Timestamp to) {
+    public List<TransactionDTO> getTransactions(@PathVariable UUID accountId, @PathVariable Timestamp from, @PathVariable Timestamp to) {
         return transactionService.getTransactionsByAccount(accountId, from, to);
     }
 
     @GetMapping("/client/{clientId}")
-    public List<Transaction> getTransactions(@PathVariable Client client, Timestamp from, Timestamp to) {
-        return transactionService.getTransactionsByClient(client, from, to);
+    public List<TransactionDTO> getTransactions(@PathVariable int clientId, @PathVariable Timestamp from, @PathVariable Timestamp to) {
+        return transactionService.getTransactionsByClientId(clientId, from, to);
     }
-
 }

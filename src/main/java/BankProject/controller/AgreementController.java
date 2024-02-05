@@ -1,6 +1,7 @@
 package BankProject.controller;
 
 import BankProject.domain.entity.Agreement;
+import BankProject.domain.entity.dto.AgreementDTO;
 import BankProject.service.AgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +18,17 @@ public class AgreementController {
 
 
     @GetMapping("/all")
-    public List<Agreement> getAll() {
+    public List<AgreementDTO> getAll() {
         return agreementService.findAll();
     }
 
     @GetMapping("/{clientId}")
-    public List<Agreement> getByClientId(@PathVariable int clientId) {
+    public List<AgreementDTO> getByClientId(@PathVariable int clientId) {
         return agreementService.getByClientId(clientId);
     }
 
     @GetMapping("/{id}")
-    public Agreement getById(@PathVariable UUID id) {
+    public AgreementDTO getById(@PathVariable UUID id) {
         return agreementService.getById(id);
     }
 
@@ -37,18 +38,14 @@ public class AgreementController {
         agreementService.removeAgreement(agreementService.getById(id));
     }
 
-    @PostMapping("/create")
-    public void createAgreement(@RequestBody Agreement agreement) {
+    @PostMapping
+    public void createAgreement(@RequestBody AgreementDTO agreement) {
         agreementService.createAgreement(agreement);
     }
 
-    @DeleteMapping("/delete")
-    public void removeAgreement(@RequestBody Agreement agreement) {
+    @DeleteMapping
+    public void removeAgreement(@RequestBody AgreementDTO agreement) {
         agreementService.removeAgreement(agreement);
     }
 
-    @PutMapping("/update")
-    public void updateAgreement(@RequestBody Agreement agreement) {
-        agreementService.updateAgreement(agreement);
-    }
 }

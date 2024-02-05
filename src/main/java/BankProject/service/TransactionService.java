@@ -1,16 +1,15 @@
 package BankProject.service;
 
-
-import BankProject.domain.entity.Client;
-import BankProject.domain.entity.Transaction;
+import BankProject.domain.entity.dto.TransactionDTO;
 import BankProject.repository.TransactionRepository;
+import BankProject.service.mapping.TransactionMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionService implements BankProject.service.interfaces.TransactionService {
@@ -18,42 +17,57 @@ public class TransactionService implements BankProject.service.interfaces.Transa
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    TransactionMappingService transactionMappingService;
+
     @Override
-    public List<Transaction> findAll() {
-        return transactionRepository.findAll();
+    public List<TransactionDTO> findAll() {
+        return transactionRepository.findAll()
+                .stream()
+                .map(transactionMappingService::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Transaction getById(UUID id) {
-        return transactionRepository.findById(id).orElse(null);
+    public TransactionDTO getById(UUID id) {
+        return transactionRepository.findById(id).isPresent()
+                ? transactionMappingService.mapToDTO(transactionRepository.findById(id).get())
+                : null;
     }
 
     @Override
-    @Transactional
-    public void createTransaction(Transaction transaction) {
-        transactionRepository.save(transaction);
+    public void createTransaction(TransactionDTO transaction) {
+        transactionRepository.save(transactionMappingService.mapToEntity(transaction));
     }
 
     @Override
-    @Transactional
-    public void deleteTransactionbyId(UUID id) {
+    public void deleteTransactionById(UUID id) {
         transactionRepository.deleteById(id);
     }
 
     @Override
-    public List<Transaction> getTransactionsByAccount(UUID CreditAccountId, java.sql.Timestamp from, java.sql.Timestamp to) {
+    public List<TransactionDTO> getTransactionsByAccount(UUID CreditAccountId, java.sql.Timestamp from, java.sql.Timestamp to) {
 
-        return transactionRepository.findByCreditAccountIdAndCreatedAtAndCreatedAt(CreditAccountId, from, to);
+        return transactionRepository.findByCreditAccountIdAndCreatedAtAndCreatedAt(CreditAccountId, from, to)
+                .stream()
+                .map(transactionMappingService::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Transaction> getTransactionsByClient(Client client, Timestamp from, Timestamp to) {
+    public List<TransactionDTO> getTransactionsByClientId(int clientId, Timestamp from, Timestamp to) {
 
-        return transactionRepository.findByClientAndCreatedAtAndCreatedAt(client, from, to);
+        return transactionRepository.findByClientIdAndCreatedAtAndCreatedAt(clientId, from, to)
+                .stream()
+                .map(transactionMappingService::mapToDTO)
+                .collect(Collectors.toList());
     }
     @Override
-    public List<Transaction> getTransactionsByTime(Timestamp from, Timestamp to) {
+    public List<TransactionDTO> getTransactionsByTime(Timestamp from, Timestamp to) {
 
-        return transactionRepository.findByCreatedAtAndCreatedAt(from, to);
+        return transactionRepository.findByCreatedAtAndCreatedAt(from, to)
+                .stream()
+                .map(transactionMappingService::mapToDTO)
+                .collect(Collectors.toList());
     }
 }

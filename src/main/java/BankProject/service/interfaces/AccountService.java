@@ -1,6 +1,7 @@
 package BankProject.service.interfaces;
 
 import BankProject.domain.entity.Account;
+import BankProject.domain.entity.dto.AccountDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,25 +10,36 @@ import java.util.UUID;
 
 public interface AccountService {
 
-    List<Account> findAll();
+    List<AccountDTO> findAll();
 
-    Account findById(UUID id);
+    AccountDTO findById(UUID id);
 
-    void createAccount(Account account);
+    AccountDTO createAccount(AccountDTO account);
 
-    void deleteAccount(Account account);
+    void deleteAccount(AccountDTO account);
 
     void deleteAccountById(UUID id);
 
-    void updateAccount(Account account);
+    BigDecimal getBalance(AccountDTO account);
 
-    BigDecimal getBalance(Account account);
+    void deposit(AccountDTO account, BigDecimal amount);
 
-    void deposit(Account account, BigDecimal amount);
+    void withdraw(AccountDTO account, BigDecimal amount);
 
-    void withdraw(Account account, BigDecimal amount);
+    void transfer(AccountDTO from, AccountDTO to, BigDecimal amount);
 
-    void transfer(Account from, Account to, BigDecimal amount);
+//    void updateAccount(
+//            UUID id,
+//            Client client,
+//            Product product,
+//            String name,
+//            AccountStatus status,
+//            AccountType type,
+//            BigDecimal balance,
+//            Currency currency,
+//            Timestamp createdAt,
+//            Timestamp updatedAt
+//            );
 
 
 }

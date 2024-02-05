@@ -1,6 +1,7 @@
 package BankProject.domain.entity;
 
 import BankProject.domain.entity.enums.Currency;
+import BankProject.domain.entity.enums.ProductStatus;
 import BankProject.domain.entity.interfaces.ProductInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class Product implements ProductInterface {
 
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
-    private int status;
+    private ProductStatus status;
 
     @Column(name = "currency_code")
     @Enumerated(EnumType.ORDINAL)
@@ -68,7 +69,7 @@ public class Product implements ProductInterface {
     }
 
     @Override
-    public int getStatus() {
+    public ProductStatus getStatus() {
         return status;
     }
 

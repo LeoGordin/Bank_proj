@@ -11,8 +11,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "transaction")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Transaction implements TransactionInterface {
 
     @Column(name = "id")
@@ -47,6 +45,19 @@ public class Transaction implements TransactionInterface {
     @Setter
     private Client client;
 
+    public Transaction() {
+    }
+
+    public Transaction(UUID id, UUID creditAccountId, UUID debitAccountId, TransactionType type, BigDecimal amount, String description, Timestamp createdAt, Client client) {
+        this.id = id;
+        this.creditAccountId = creditAccountId;
+        this.debitAccountId = debitAccountId;
+        this.type = type;
+        this.amount = amount;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.client = client;
+    }
 
     @Override
     public UUID getId() {

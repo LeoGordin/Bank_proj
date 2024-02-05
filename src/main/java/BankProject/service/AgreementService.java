@@ -1,8 +1,10 @@
 package BankProject.service;
 
 import BankProject.domain.entity.Agreement;
+import BankProject.domain.entity.dto.AgreementDTO;
 import BankProject.repository.AgreementRepository;
 import BankProject.repository.ClientRepository;
+import BankProject.service.mapping.AgreementMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,53 +17,58 @@ import java.util.stream.Collectors;
 public class AgreementService implements BankProject.service.interfaces.AgreementService {
 
     @Autowired
-    private AgreementRepository agreementRepository;
+    AgreementRepository agreementRepository;
 
     @Autowired
-    private ClientRepository clientRepository;
+    AgreementMappingService agreementMappingService;
 
     @Override
-    public List<Agreement> findAll() {
-        return agreementRepository.findAll();
+    public List<AgreementDTO> findAll() {
+        return agreementRepository.findAll()
+                .stream()
+                .map(agreementMappingService::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<Agreement> getByClientId(int clientId) {
+    public List<AgreementDTO> getByClientId(int clientId) {
 
-        List <Agreement> agreements = agreementRepository.findAll().stream()
+        List<Agreement> agreements = agreementRepository.findAll().stream()
                 .filter(agreement -> agreement.getClientId() == clientId).collect(Collectors.toList());
 
         if (agreements.isEmpty()) {
             throw new NoSuchElementException();
         }
 
-        return agreements;
+        return agreements
+                .stream()
+                .map(agreementMappingService::mapToDTO)
+                .collect(Collectors.toList());
 
     }
+
     @Override
-    public Agreement getById(UUID id) {
-        return agreementRepository.findAll().stream()
-                .filter(agreement -> agreement.getId().equals(id)).findFirst().get();
+    public AgreementDTO getById(UUID id) {
+        Agreement foundAgreement = agreementRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return agreementMappingService.mapToDTO(foundAgreement);
     }
 
     @Override
     public void removeById(UUID id) {
-        agreementRepository.delete(findAll().stream()
-                .filter(agreement -> agreement.getId().equals(id)).findFirst().get());
+
+        agreementRepository.deleteById(id);
     }
 
     @Override
-    public void createAgreement(Agreement agreement) {
-        agreementRepository.save(agreement);
+    public void createAgreement(AgreementDTO agreement) {
+
+        agreementRepository.save(agreementMappingService.mapToEntity(agreement));
     }
 
     @Override
-    public void removeAgreement(Agreement agreement) {
-        agreementRepository.delete(agreement);
+    public void removeAgreement(AgreementDTO agreement) {
+
+        agreementRepository.delete(agreementMappingService.mapToEntity(agreement));
     }
 
-    @Override
-    public void updateAgreement(Agreement agreement) {
-        agreementRepository.saveAndFlush(agreement);
-    }
+
 }

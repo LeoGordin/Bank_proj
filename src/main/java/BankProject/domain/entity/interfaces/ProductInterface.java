@@ -1,6 +1,7 @@
 package BankProject.domain.entity.interfaces;
 
 import BankProject.domain.entity.enums.Currency;
+import BankProject.domain.entity.enums.ProductStatus;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -33,7 +34,7 @@ public interface ProductInterface {
      *
      * @return @PRODUCT_STATUS of @Product
      */
-    int getStatus();
+    ProductStatus getStatus();
 
     /**
      * Retrieves currency code of product

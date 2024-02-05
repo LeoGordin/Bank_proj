@@ -4,7 +4,9 @@ import BankProject.domain.entity.enums.ManagerStatus;
 import BankProject.domain.entity.interfaces.ManagerInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -19,6 +21,9 @@ public class Manager implements ManagerInterface {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+
+    @Column(name = "user_id")
+    private int userId;
 
     @Column(name = "first_name")
     private String firstName;
@@ -36,7 +41,14 @@ public class Manager implements ManagerInterface {
     @Column(name = "created_at")
     private Timestamp createdAt;
 
+    @Column(name = "updated_at")
+    @Getter
+    @Setter
+    private Timestamp updatedAt;
+
     @Column(name = "role")
+    @Getter
+    @Setter
     private Role role;
 
     @OneToMany(mappedBy = "manager")

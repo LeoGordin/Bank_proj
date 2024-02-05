@@ -1,11 +1,14 @@
 package BankProject.service;
 
 import BankProject.domain.entity.Product;
+import BankProject.domain.entity.dto.ProductDTO;
 import BankProject.repository.ProductRepository;
+import BankProject.service.mapping.ProductMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService implements BankProject.service.interfaces.ProductService {
@@ -13,29 +16,35 @@ public class ProductService implements BankProject.service.interfaces.ProductSer
     @Autowired
     ProductRepository productRepository;
 
+    @Autowired
+    ProductMappingService productMappingService;
+
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<ProductDTO> findAll() {
+        return productRepository.findAll()
+                .stream()
+                .map(productMappingService::mapToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Product getById(int id) {
-        return productRepository.findById(id).orElse(null);
+    public ProductDTO getById(int id) {
+        return productRepository.findById(id)
+                .isPresent()
+                ? productMappingService.mapToDTO(productRepository.findById(id).get())
+                : null;
     }
 
     @Override
-    public void addProduct(Product product) {
-        productRepository.save(product);
+    public void addProduct(ProductDTO product) {
+        productRepository.save(productMappingService.mapToEntity(product));
     }
 
-    @Override
-    public void updateProduct(Product product) {
-        productRepository.saveAndFlush(product);
-    }
 
     @Override
-    public void deleteProduct(Product product) {
-        productRepository.delete(product);
+    public void deleteProduct(ProductDTO product) {
+
+        productRepository.delete(productMappingService.mapToEntity(product));
     }
 }

@@ -2,8 +2,12 @@ package BankProject.service;
 
 import BankProject.domain.entity.Account;
 import BankProject.domain.entity.Transaction;
+import BankProject.domain.entity.User;
+import BankProject.domain.entity.dto.AccountDTO;
+import BankProject.domain.entity.enums.TransactionType;
 import BankProject.repository.AccountRepository;
 import BankProject.repository.TransactionRepository;
+import BankProject.service.mapping.AccountMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService implements BankProject.service.interfaces.AccountService {
@@ -21,24 +26,33 @@ public class AccountService implements BankProject.service.interfaces.AccountSer
     @Autowired
     TransactionRepository transactionRepository;
 
+    @Autowired
+    AccountMappingService accountMappingService;
+
     @Override
-    public List<Account> findAll() {
-        return accountRepository.findAll();
+    public List<AccountDTO> findAll() {
+        return accountRepository.findAll().stream().map(accountMappingService::mapToDTO).collect(Collectors.toList());
     }
 
     @Override
-    public Account findById(UUID id) {
-        return accountRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public AccountDTO findById(UUID id) {
+        Account account = accountRepository.findById(id).isPresent() ? accountRepository.findById(id).get() : null;
+        if (account == null) {
+            throw new NoSuchElementException();
+        }
+        return accountMappingService.mapToDTO(account);
     }
 
     @Override
-    public void createAccount(Account account) {
-        accountRepository.save(account);
+    public AccountDTO createAccount(AccountDTO account) {
+        Account savedAccount = accountRepository.save(accountMappingService.mapToEntity(account));
+        return accountMappingService.mapToDTO(savedAccount);
     }
 
     @Override
-    public void deleteAccount(Account account) {
-        accountRepository.delete(account);
+    public void deleteAccount(AccountDTO account) {
+
+        accountRepository.delete(accountMappingService.mapToEntity(account));
     }
 
     @Override
@@ -47,33 +61,45 @@ public class AccountService implements BankProject.service.interfaces.AccountSer
     }
 
     @Override
-    public void updateAccount(Account account) {
-        accountRepository.saveAndFlush(account);
-    }
+    public BigDecimal getBalance(AccountDTO accountDTO) {
 
-    @Override
-    public BigDecimal getBalance(Account account) {
+        Account account = accountMappingService.mapToEntity(accountDTO);
+
         return account.getBalance();
     }
 
     @Override
-    public void deposit(Account account, BigDecimal amount) {
+    public void deposit(AccountDTO accountDTO, BigDecimal amount) {
 
-        int type = 1;
+        Account account = accountMappingService.mapToEntity(accountDTO);
+
+        TransactionType type = TransactionType.DEPOSIT;
 
         BigDecimal balance = account.getBalance();
         balance = balance.add(amount);
         account.setBalance(balance);
+
         accountRepository.save(account);
         transactionRepository.save(
-                new Transaction()
+                new Transaction(
+                        null,
+                        account.getId(),
+                        account.getId(),
+                        type,
+                        amount,
+                        String.format("Deposit to %s", account.getId()),
+                        null,
+                        account.getClient()
+                )
         );
     }
 
     @Override
-    public void withdraw(Account account, BigDecimal amount) {
+    public void withdraw(AccountDTO accountDTO, BigDecimal amount) {
 
-        int type = 2;
+        TransactionType type = TransactionType.WITHDRAW;
+
+        Account account = accountMappingService.mapToEntity(accountDTO);
 
         BigDecimal balance = account.getBalance();
         if (balance.compareTo(amount) < 0) {
@@ -85,14 +111,25 @@ public class AccountService implements BankProject.service.interfaces.AccountSer
         accountRepository.save(account);
         transactionRepository.save(
                 new Transaction(
+                        null,
+                        account.getId(),
+                        account.getId(),
+                        type,
+                        amount,
+                        String.format("Withdrawal from %s", account.getId()),
+                        null,
+                        account.getClient()
                 )
         );
     }
 
     @Override
-    public void transfer(Account from, Account to, BigDecimal amount) {
+    public void transfer(AccountDTO fromDTO, AccountDTO toDTO, BigDecimal amount) {
 
-        int type = 3;
+        TransactionType type = TransactionType.TRANSFER;
+
+        Account from = accountMappingService.mapToEntity(fromDTO);
+        Account to = accountMappingService.mapToEntity(toDTO);
 
         BigDecimal fromBalance = from.getBalance();
         BigDecimal toBalance = to.getBalance();
@@ -109,7 +146,16 @@ public class AccountService implements BankProject.service.interfaces.AccountSer
         accountRepository.save(to);
 
         transactionRepository.save(
-                new Transaction()
+                new Transaction(
+                        null,
+                        from.getId(),
+                        to.getId(),
+                        type,
+                        amount,
+                        String.format("Transfer from %s to %s", from.getId(), to.getId()),
+                        null,
+                        from.getClient()
+                )
         );
     }
 

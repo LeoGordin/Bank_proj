@@ -2,6 +2,8 @@ package BankProject.service.interfaces;
 
 import BankProject.domain.entity.Client;
 import BankProject.domain.entity.Transaction;
+import BankProject.domain.entity.dto.ClientDTO;
+import BankProject.domain.entity.dto.TransactionDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -9,17 +11,17 @@ import java.util.UUID;
 
 public interface TransactionService {
 
-    List<Transaction> findAll();
+    List<TransactionDTO> findAll();
 
-    Transaction getById(UUID id);
+    TransactionDTO getById(UUID id);
 
-    void createTransaction(Transaction transaction);
+    void createTransaction(TransactionDTO transaction);
 
-    void deleteTransactionbyId(UUID id);
+    void deleteTransactionById(UUID id);
 
-    List<Transaction> getTransactionsByAccount(UUID accountId, java.sql.Timestamp from, java.sql.Timestamp to);
+    List<TransactionDTO> getTransactionsByAccount(UUID accountId, java.sql.Timestamp from, java.sql.Timestamp to);
 
-    List<Transaction> getTransactionsByClient(Client client, java.sql.Timestamp from, java.sql.Timestamp to);
+    List<TransactionDTO> getTransactionsByClientId(int clientId, java.sql.Timestamp from, java.sql.Timestamp to);
 
-    List<Transaction> getTransactionsByTime(Timestamp from, Timestamp to);
+    List<TransactionDTO> getTransactionsByTime(Timestamp from, Timestamp to);
 }

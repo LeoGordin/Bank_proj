@@ -1,18 +1,30 @@
 package BankProject.service.interfaces;
 
 import BankProject.domain.entity.Product;
+import BankProject.domain.entity.dto.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> findAll();
+    List<ProductDTO> findAll();
 
-    Product getById(int id);
+    ProductDTO getById(int id);
 
-    void addProduct(Product product);
+    void addProduct(ProductDTO product);
 
-    void updateProduct(Product product);
+    void deleteProduct(ProductDTO product);
 
-    void deleteProduct(Product product);
+//    void updateProduct(
+//            int id,
+//            Manager manager,
+//            Account account,
+//            String name,
+//            ProductStatus status,
+//            Currency currency,
+//            BigDecimal interestRate,
+//            BigDecimal limit,
+//            Timestamp createdAt,
+//            Timestamp updatedAt
+//    );
 }

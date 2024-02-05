@@ -1,20 +1,36 @@
 package BankProject.service.interfaces;
 
 import BankProject.domain.entity.Client;
+import BankProject.domain.entity.dto.ClientDTO;
 
 import java.util.List;
 
 public interface ClientService {
 
-    List<Client> findAll();
+    List<ClientDTO> findAll();
 
-    Client getById(int id);
+    ClientDTO getById(int id);
 
-    void addClient(Client client);
+    void addClient(ClientDTO client);
 
-    void deleteClient(Client client);
+    void deleteClient(ClientDTO client);
 
-    void updateClient(Client client);
+//    void updateClient(
+//            int clientId,
+//            int userId,
+//            int managerId,
+//            Manager manager,
+//            ClientStatus status,
+//            String taxCode,
+//            String firstName,
+//            String lastName,
+//            String email,
+//            String address,
+//            String phone,
+//            Timestamp createdAt,
+//            Timestamp updatedAt,
+//            Role role
+//    );
 
 
 }
