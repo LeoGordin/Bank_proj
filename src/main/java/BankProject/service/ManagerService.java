@@ -1,8 +1,8 @@
 package BankProject.service;
 
-import BankProject.domain.entity.Manager;
 import BankProject.domain.entity.dto.ManagerDTO;
 import BankProject.repository.ManagerRepository;
+import BankProject.service.interfaces.ManagerServiceInterface;
 import BankProject.service.mapping.ManagerMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ManagerService implements BankProject.service.interfaces.ManagerService {
+public class ManagerService implements ManagerServiceInterface {
 
     @Autowired
     ManagerRepository managerRepository;

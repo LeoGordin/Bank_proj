@@ -2,11 +2,11 @@ package BankProject.service;
 
 import BankProject.domain.entity.Account;
 import BankProject.domain.entity.Transaction;
-import BankProject.domain.entity.User;
 import BankProject.domain.entity.dto.AccountDTO;
 import BankProject.domain.entity.enums.TransactionType;
 import BankProject.repository.AccountRepository;
 import BankProject.repository.TransactionRepository;
+import BankProject.service.interfaces.AccountServiceInterface;
 import BankProject.service.mapping.AccountMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class AccountService implements BankProject.service.interfaces.AccountService {
+public class AccountService implements AccountServiceInterface {
 
     @Autowired
     AccountRepository accountRepository;
@@ -78,6 +78,7 @@ public class AccountService implements BankProject.service.interfaces.AccountSer
         BigDecimal balance = account.getBalance();
         balance = balance.add(amount);
         account.setBalance(balance);
+
 
         accountRepository.save(account);
         transactionRepository.save(

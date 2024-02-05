@@ -1,15 +1,12 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Client;
-import BankProject.domain.entity.Transaction;
-import BankProject.domain.entity.dto.ClientDTO;
 import BankProject.domain.entity.dto.TransactionDTO;
 
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
-public interface TransactionService {
+public interface TransactionServiceInterface {
 
     List<TransactionDTO> findAll();
 

@@ -1,14 +1,10 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Manager;
-import BankProject.domain.entity.Role;
 import BankProject.domain.entity.dto.ManagerDTO;
-import BankProject.domain.entity.enums.ManagerStatus;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-public interface ManagerService {
+public interface ManagerServiceInterface {
 
     List<ManagerDTO> findAll();
 

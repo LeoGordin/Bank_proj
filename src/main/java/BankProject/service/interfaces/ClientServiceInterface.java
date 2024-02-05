@@ -1,11 +1,10 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Client;
 import BankProject.domain.entity.dto.ClientDTO;
 
 import java.util.List;
 
-public interface ClientService {
+public interface ClientServiceInterface {
 
     List<ClientDTO> findAll();
 

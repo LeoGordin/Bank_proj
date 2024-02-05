@@ -1,11 +1,10 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Product;
 import BankProject.domain.entity.dto.ProductDTO;
 
 import java.util.List;
 
-public interface ProductService {
+public interface ProductServiceInterface {
 
     List<ProductDTO> findAll();
 

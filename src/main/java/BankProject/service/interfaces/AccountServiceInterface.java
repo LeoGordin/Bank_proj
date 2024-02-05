@@ -1,6 +1,5 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Account;
 import BankProject.domain.entity.dto.AccountDTO;
 
 import java.math.BigDecimal;
@@ -8,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 
-public interface AccountService {
+public interface AccountServiceInterface {
 
     List<AccountDTO> findAll();
 

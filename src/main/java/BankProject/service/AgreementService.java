@@ -3,7 +3,7 @@ package BankProject.service;
 import BankProject.domain.entity.Agreement;
 import BankProject.domain.entity.dto.AgreementDTO;
 import BankProject.repository.AgreementRepository;
-import BankProject.repository.ClientRepository;
+import BankProject.service.interfaces.AgreementServiceInterface;
 import BankProject.service.mapping.AgreementMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class AgreementService implements BankProject.service.interfaces.AgreementService {
+public class AgreementService implements AgreementServiceInterface {
 
     @Autowired
     AgreementRepository agreementRepository;

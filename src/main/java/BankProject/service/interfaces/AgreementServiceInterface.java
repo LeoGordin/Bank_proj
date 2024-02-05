@@ -1,12 +1,11 @@
 package BankProject.service.interfaces;
 
-import BankProject.domain.entity.Agreement;
 import BankProject.domain.entity.dto.AgreementDTO;
 
 import java.util.List;
 import java.util.UUID;
 
-public interface AgreementService {
+public interface AgreementServiceInterface {
 
     List<AgreementDTO> findAll();
 

@@ -1,8 +1,8 @@
 package BankProject.service;
 
-import BankProject.domain.entity.Product;
 import BankProject.domain.entity.dto.ProductDTO;
 import BankProject.repository.ProductRepository;
+import BankProject.service.interfaces.ProductServiceInterface;
 import BankProject.service.mapping.ProductMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService implements BankProject.service.interfaces.ProductService {
+public class ProductService implements ProductServiceInterface {
 
     @Autowired
     ProductRepository productRepository;

@@ -2,6 +2,7 @@ package BankProject.service;
 
 import BankProject.domain.entity.dto.TransactionDTO;
 import BankProject.repository.TransactionRepository;
+import BankProject.service.interfaces.TransactionServiceInterface;
 import BankProject.service.mapping.TransactionMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class TransactionService implements BankProject.service.interfaces.TransactionService {
+public class TransactionService implements TransactionServiceInterface {
 
     @Autowired
     TransactionRepository transactionRepository;
