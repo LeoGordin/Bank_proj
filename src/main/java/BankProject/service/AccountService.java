@@ -153,4 +153,12 @@ public class AccountService implements AccountServiceInterface {
         );
     }
 
+    public AccountDTO getAccountById(int id) {
+
+        Account account = accountRepository.findById(id).isPresent() ? accountRepository.findById(id).get() : null;
+        if (account == null) {
+            throw new NoSuchElementException();
+        }
+        return  accountMappingService.mapToDTO(account);
+    }
 }
