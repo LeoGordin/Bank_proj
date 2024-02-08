@@ -6,11 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.UUID;
 
-public interface AccountRepository extends JpaRepository<Account, UUID> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     @Query(value = "SELECT * FROM account WHERE id = ?1", nativeQuery = true)
-    public void getAccountById(UUID id);
+    public Account getById(int id);
 
     @Query(value = "DELETE FROM account WHERE id = ?1", nativeQuery = true)
-    public void deleteAccountById(UUID id);
+    public void deleteAccountById(int id);
 }

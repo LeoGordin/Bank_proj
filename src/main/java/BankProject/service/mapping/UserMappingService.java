@@ -10,13 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Mapper(componentModel = "spring")
 public interface UserMappingService {
 
-    @Mapping(target = "User.password", constant = "password is hidden")
     public UserDTO mapToDTO(User user);
 
-    @Mapping(target = "User.password", expression = "java(String.valueOf(new BCryptPasswordEncoder().encode(userDTO.getPassword())))")
-    @Mapping(target = "User.id", constant = "0")
     public User mapToEntity(UserDTO userDTO);
-
-
 
 }

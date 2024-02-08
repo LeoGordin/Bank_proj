@@ -2,7 +2,6 @@ package BankProject.domain.entity.interfaces;
 
 import BankProject.domain.entity.Client;
 import BankProject.domain.entity.Product;
-import BankProject.domain.entity.enums.ManagerStatus;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -41,7 +40,7 @@ public interface ManagerInterface {
      *
      * @return @MANAGER_STATUS of @Manager
      */
-    ManagerStatus getStatus();
+    String getStatus();
 
     /**
      * Retrieves description of manager

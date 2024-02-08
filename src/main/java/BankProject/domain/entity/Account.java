@@ -1,8 +1,5 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.AccountStatus;
-import BankProject.domain.entity.enums.AccountType;
-import BankProject.domain.entity.enums.Currency;
 import BankProject.domain.entity.interfaces.AccountInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +20,7 @@ public class Account implements AccountInterface {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private UUID id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -34,22 +31,19 @@ public class Account implements AccountInterface {
     private Product product;
 
     @Column(name = "name")
-    private String name;
+    private java.lang.String name;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
-    private AccountStatus status;
+    private java.lang.String status;
 
     @Column(name = "type")
-    @Enumerated(EnumType.ORDINAL)
-    private AccountType type;
+    private String type;
 
     @Column(name = "balance")
     private BigDecimal balance;
 
     @Column(name = "currency_code")
-    @Enumerated(EnumType.ORDINAL)
-    private Currency currency;
+    private String currency;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -58,7 +52,7 @@ public class Account implements AccountInterface {
     private Timestamp updatedAt;
 
     @Override
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
@@ -73,22 +67,22 @@ public class Account implements AccountInterface {
     }
 
     @Override
-    public AccountType getType() {
+    public String getType() {
         return type;
     }
 
     @Override
-    public void setType(AccountType type) {
+    public void setType(String type) {
         this.type = type;
     }
 
     @Override
-    public AccountStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
     @Override
-    public void setStatus(AccountStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -98,7 +92,7 @@ public class Account implements AccountInterface {
     }
 
     @Override
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 

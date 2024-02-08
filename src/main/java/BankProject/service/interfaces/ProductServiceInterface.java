@@ -14,6 +14,8 @@ public interface ProductServiceInterface {
 
     void deleteProduct(ProductDTO product);
 
+    void deleteProductById(int id);
+
 //    void updateProduct(
 //            int id,
 //            Manager manager,

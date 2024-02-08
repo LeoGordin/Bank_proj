@@ -1,6 +1,5 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.TransactionType;
 import BankProject.domain.entity.interfaces.TransactionInterface;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,18 +15,17 @@ public class Transaction implements TransactionInterface {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private int id;
 
     @Setter
     @Column(name = "credit_account_id")
-    private UUID creditAccountId;
+    private int creditAccountId;
 
     @Column(name = "debit_account_id")
-    private UUID debitAccountId;
+    private int debitAccountId;
 
     @Column(name = "type")
-    @Enumerated(EnumType.ORDINAL)
-    private TransactionType type;
+    private String type;
 
     @Column(name = "amount")
     private BigDecimal amount;
@@ -48,34 +46,34 @@ public class Transaction implements TransactionInterface {
     public Transaction() {
     }
 
-    public Transaction(UUID id, UUID creditAccountId, UUID debitAccountId, TransactionType type, BigDecimal amount, String description, Timestamp createdAt, Client client) {
-        this.id = id;
+    public Transaction(int creditAccountId, int debitAccountId, String type, BigDecimal amount, String description, Client client) {
         this.creditAccountId = creditAccountId;
         this.debitAccountId = debitAccountId;
         this.type = type;
         this.amount = amount;
         this.description = description;
-        this.createdAt = createdAt;
         this.client = client;
     }
 
+
+
     @Override
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    public UUID getCreditAccountId() {
+    public int getCreditAccountId() {
         return creditAccountId;
     }
 
     @Override
-    public UUID getDebitAccountId() {
+    public int getDebitAccountId() {
         return debitAccountId;
     }
 
     @Override
-    public TransactionType getType() {
+    public String getType() {
         return type;
     }
 

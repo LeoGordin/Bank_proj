@@ -28,13 +28,13 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public TransactionDTO getById(@PathVariable UUID id) {
+    public TransactionDTO getById(@PathVariable int id) {
         return transactionService.getById(id);
     }
 
     @GetMapping("/account/{accountId}")
-    public List<TransactionDTO> getTransactions(@PathVariable UUID accountId, @PathVariable Timestamp from, @PathVariable Timestamp to) {
-        return transactionService.getTransactionsByAccount(accountId, from, to);
+    public List<TransactionDTO> getTransactionsByAccountId(@PathVariable int accountId, @PathVariable Timestamp from, @PathVariable Timestamp to) {
+        return transactionService.getTransactionsByAccountID(accountId, from, to);
     }
 
     @GetMapping("/client/{clientId}")

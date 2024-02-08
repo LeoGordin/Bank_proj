@@ -10,9 +10,11 @@ public interface ClientServiceInterface {
 
     ClientDTO getById(int id);
 
-    void addClient(ClientDTO client);
+    void saveClient(ClientDTO client);
 
     void deleteClient(ClientDTO client);
+
+    void deleteClientById(int id);
 
 //    void updateClient(
 //            int clientId,

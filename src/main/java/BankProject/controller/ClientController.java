@@ -1,6 +1,5 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.Client;
 import BankProject.domain.entity.dto.ClientDTO;
 import BankProject.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,19 @@ public class ClientController {
         return clientService.getById(id);
     }
 
-    @PostMapping("/new")
-    public void addClient(@RequestBody ClientDTO client) {
-        clientService.addClient(client);
+    @PostMapping("/save")
+    public void saveClient(@RequestBody ClientDTO client) {
+        clientService.saveClient(client);
     }
 
     @DeleteMapping("/delete")
     public void deleteClient(@RequestBody ClientDTO client) {
         clientService.deleteClient(client);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteClientById(@PathVariable int id) {
+        clientService.deleteClientById(id);
     }
 
 }

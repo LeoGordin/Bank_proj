@@ -15,23 +15,24 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserService service;
+    private UserService userService;
 
     @GetMapping("/all")
     public List<UserDTO> findAll() {
 
-        return service.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/username/{username}")
     public UserDetails getByUsername(@PathVariable String username) {
 
-        return service.loadUserByUsername(username);
+        return userService.loadUserByUsername(username);
     }
 
+    @PostMapping("/add")
     public void addUser(@RequestBody User user) {
 
-        service.save(user);
+        userService.save(user);
         System.out.printf("User %s added", user.getUsername());
     }
 

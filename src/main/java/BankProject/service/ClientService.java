@@ -34,13 +34,17 @@ public class ClientService implements ClientServiceInterface {
     }
 
     @Override
-    public void addClient(ClientDTO client) {
+    public void saveClient(ClientDTO client) {
         clientRepository.save(clientMappingService.mapToEntity(client));
     }
 
     @Override
     public void deleteClient(ClientDTO client) {
         clientRepository.delete(clientMappingService.mapToEntity(client));
+    }
+
+    public void deleteClientById(int id) {
+        clientRepository.deleteById(id);
     }
 
 }

@@ -1,6 +1,5 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.Agreement;
 import BankProject.domain.entity.dto.AgreementDTO;
 import BankProject.service.AgreementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,22 +27,22 @@ public class AgreementController {
     }
 
     @GetMapping("/{id}")
-    public AgreementDTO getById(@PathVariable UUID id) {
+    public AgreementDTO getById(@PathVariable int id) {
         return agreementService.getById(id);
     }
 
 
-    @DeleteMapping("/{id}")
-    public void removeById(@PathVariable UUID id) {
+    @DeleteMapping("/delete/{id}")
+    public void removeById(@PathVariable int id) {
         agreementService.removeAgreement(agreementService.getById(id));
     }
 
-    @PostMapping
-    public void createAgreement(@RequestBody AgreementDTO agreement) {
-        agreementService.createAgreement(agreement);
+    @PostMapping("/save")
+    public void saveAgreement(@RequestBody AgreementDTO agreement) {
+        agreementService.saveAgreement(agreement);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public void removeAgreement(@RequestBody AgreementDTO agreement) {
         agreementService.removeAgreement(agreement);
     }

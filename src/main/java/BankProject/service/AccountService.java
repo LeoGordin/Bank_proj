@@ -3,7 +3,6 @@ package BankProject.service;
 import BankProject.domain.entity.Account;
 import BankProject.domain.entity.Transaction;
 import BankProject.domain.entity.dto.AccountDTO;
-import BankProject.domain.entity.enums.TransactionType;
 import BankProject.repository.AccountRepository;
 import BankProject.repository.TransactionRepository;
 import BankProject.service.interfaces.AccountServiceInterface;
@@ -35,7 +34,7 @@ public class AccountService implements AccountServiceInterface {
     }
 
     @Override
-    public AccountDTO findById(UUID id) {
+    public AccountDTO findById(int id) {
         Account account = accountRepository.findById(id).isPresent() ? accountRepository.findById(id).get() : null;
         if (account == null) {
             throw new NoSuchElementException();
@@ -44,7 +43,7 @@ public class AccountService implements AccountServiceInterface {
     }
 
     @Override
-    public AccountDTO createAccount(AccountDTO account) {
+    public AccountDTO saveAccount(AccountDTO account) {
         Account savedAccount = accountRepository.save(accountMappingService.mapToEntity(account));
         return accountMappingService.mapToDTO(savedAccount);
     }
@@ -56,7 +55,7 @@ public class AccountService implements AccountServiceInterface {
     }
 
     @Override
-    public void deleteAccountById(UUID id) {
+    public void deleteAccountById(int id) {
         accountRepository.deleteById(id);
     }
 
@@ -73,7 +72,7 @@ public class AccountService implements AccountServiceInterface {
 
         Account account = accountMappingService.mapToEntity(accountDTO);
 
-        TransactionType type = TransactionType.DEPOSIT;
+        String type = "DEPOSIT";
 
         BigDecimal balance = account.getBalance();
         balance = balance.add(amount);
@@ -83,13 +82,11 @@ public class AccountService implements AccountServiceInterface {
         accountRepository.save(account);
         transactionRepository.save(
                 new Transaction(
-                        null,
                         account.getId(),
                         account.getId(),
                         type,
                         amount,
                         String.format("Deposit to %s", account.getId()),
-                        null,
                         account.getClient()
                 )
         );
@@ -98,7 +95,7 @@ public class AccountService implements AccountServiceInterface {
     @Override
     public void withdraw(AccountDTO accountDTO, BigDecimal amount) {
 
-        TransactionType type = TransactionType.WITHDRAW;
+        String type = "WITHDRAW";
 
         Account account = accountMappingService.mapToEntity(accountDTO);
 
@@ -112,13 +109,11 @@ public class AccountService implements AccountServiceInterface {
         accountRepository.save(account);
         transactionRepository.save(
                 new Transaction(
-                        null,
                         account.getId(),
                         account.getId(),
                         type,
                         amount,
                         String.format("Withdrawal from %s", account.getId()),
-                        null,
                         account.getClient()
                 )
         );
@@ -127,7 +122,7 @@ public class AccountService implements AccountServiceInterface {
     @Override
     public void transfer(AccountDTO fromDTO, AccountDTO toDTO, BigDecimal amount) {
 
-        TransactionType type = TransactionType.TRANSFER;
+        String type = "TRANSFER";
 
         Account from = accountMappingService.mapToEntity(fromDTO);
         Account to = accountMappingService.mapToEntity(toDTO);
@@ -148,13 +143,11 @@ public class AccountService implements AccountServiceInterface {
 
         transactionRepository.save(
                 new Transaction(
-                        null,
                         from.getId(),
                         to.getId(),
                         type,
                         amount,
                         String.format("Transfer from %s to %s", from.getId(), to.getId()),
-                        null,
                         from.getClient()
                 )
         );

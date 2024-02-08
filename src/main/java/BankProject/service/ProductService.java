@@ -47,4 +47,10 @@ public class ProductService implements ProductServiceInterface {
 
         productRepository.delete(productMappingService.mapToEntity(product));
     }
+
+    @Override
+    public void deleteProductById(int id) {
+
+        productRepository.deleteById(id);
+    }
 }

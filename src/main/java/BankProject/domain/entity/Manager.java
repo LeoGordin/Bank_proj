@@ -1,6 +1,5 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.ManagerStatus;
 import BankProject.domain.entity.interfaces.ManagerInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,9 @@ public class Manager implements ManagerInterface {
     private int id;
 
     @Column(name = "user_id")
-    private int userId;
+    @Getter
+    @Setter
+    private User user;
 
     @Column(name = "first_name")
     private String firstName;
@@ -32,8 +33,7 @@ public class Manager implements ManagerInterface {
     private String lastName;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
-    private ManagerStatus status;
+    private String status;
 
     @Column(name = "description")
     private String description;
@@ -45,11 +45,6 @@ public class Manager implements ManagerInterface {
     @Getter
     @Setter
     private Timestamp updatedAt;
-
-    @Column(name = "role")
-    @Getter
-    @Setter
-    private Role role;
 
     @OneToMany(mappedBy = "manager")
     private List<Client> clients;
@@ -73,7 +68,7 @@ public class Manager implements ManagerInterface {
     }
 
     @Override
-    public ManagerStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.UUID;
 
-public interface AgreementRepository extends JpaRepository<Agreement, UUID> {
+public interface AgreementRepository extends JpaRepository<Agreement, Integer> {
 
 }

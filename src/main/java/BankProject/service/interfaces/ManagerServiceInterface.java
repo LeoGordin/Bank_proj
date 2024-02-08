@@ -10,9 +10,11 @@ public interface ManagerServiceInterface {
 
     ManagerDTO getById(int id);
 
-    void addManager(ManagerDTO manager);
+    void saveManager(ManagerDTO manager);
 
     void deleteManager(ManagerDTO manager);
+
+    void deleteManagerById(int id);
 
 //    void updateManager(
 //            int id,

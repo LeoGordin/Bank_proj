@@ -47,19 +47,19 @@ public class AgreementService implements AgreementServiceInterface {
     }
 
     @Override
-    public AgreementDTO getById(UUID id) {
+    public AgreementDTO getById(int id) {
         Agreement foundAgreement = agreementRepository.findById(id).orElseThrow(NoSuchElementException::new);
         return agreementMappingService.mapToDTO(foundAgreement);
     }
 
     @Override
-    public void removeById(UUID id) {
+    public void deleteById(int id) {
 
         agreementRepository.deleteById(id);
     }
 
     @Override
-    public void createAgreement(AgreementDTO agreement) {
+    public void saveAgreement(AgreementDTO agreement) {
 
         agreementRepository.save(agreementMappingService.mapToEntity(agreement));
     }

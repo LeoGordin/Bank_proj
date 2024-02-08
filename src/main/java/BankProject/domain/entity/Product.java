@@ -1,7 +1,5 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.Currency;
-import BankProject.domain.entity.enums.ProductStatus;
 import BankProject.domain.entity.interfaces.ProductInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,12 +32,10 @@ public class Product implements ProductInterface {
     private String name;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
-    private ProductStatus status;
+    private String status;
 
     @Column(name = "currency_code")
-    @Enumerated(EnumType.ORDINAL)
-    private Currency currency;
+    private String currency;
 
     @Column(name = "interest_rate")
     private BigDecimal interestRate;
@@ -69,12 +65,12 @@ public class Product implements ProductInterface {
     }
 
     @Override
-    public ProductStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
     @Override
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 

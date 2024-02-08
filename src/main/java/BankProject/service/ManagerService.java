@@ -35,11 +35,16 @@ public class ManagerService implements ManagerServiceInterface {
     }
 
     @Override
-    public void addManager(ManagerDTO manager) {
+    public void saveManager(ManagerDTO manager) {
         managerRepository.save(managerMappingService.mapToEntity(manager));
     }
     @Override
     public void deleteManager(ManagerDTO manager) {
         managerRepository.delete(managerMappingService.mapToEntity(manager));
+    }
+
+    @Override
+    public void deleteManagerById(int id) {
+        managerRepository.deleteById(id);
     }
 }

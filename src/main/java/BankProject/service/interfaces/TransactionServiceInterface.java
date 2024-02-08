@@ -10,13 +10,13 @@ public interface TransactionServiceInterface {
 
     List<TransactionDTO> findAll();
 
-    TransactionDTO getById(UUID id);
+    TransactionDTO getById(int id);
 
     void createTransaction(TransactionDTO transaction);
 
-    void deleteTransactionById(UUID id);
+    void deleteTransactionById(int id);
 
-    List<TransactionDTO> getTransactionsByAccount(UUID accountId, java.sql.Timestamp from, java.sql.Timestamp to);
+    List<TransactionDTO> getTransactionsByAccountID(int accountId, Timestamp from, Timestamp to);
 
     List<TransactionDTO> getTransactionsByClientId(int clientId, java.sql.Timestamp from, java.sql.Timestamp to);
 

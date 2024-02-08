@@ -1,7 +1,5 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.AgreementStatus;
-import BankProject.domain.entity.enums.Currency;
 import BankProject.domain.entity.interfaces.AgreementInterface;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -20,7 +18,7 @@ public class Agreement implements AgreementInterface {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private UUID id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "account_id")
@@ -38,15 +36,13 @@ public class Agreement implements AgreementInterface {
     private float interestRate;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
-    private AgreementStatus status;
+    private String status;
 
     @Column(name = "sum")
     private BigDecimal sum;
 
     @Column(name = "currency_code")
-    @Enumerated(EnumType.ORDINAL)
-    private Currency currency;
+    private String currency;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
@@ -55,12 +51,12 @@ public class Agreement implements AgreementInterface {
     private Timestamp updatedAt;
 
     @Override
-    public UUID getId() {
-        return id;
+    public int getId() {
+         return id;
     }
 
     @Override
-    public UUID getAccountId() {
+    public int getAccountId() {
         return account.getId();
     }
 
@@ -75,12 +71,12 @@ public class Agreement implements AgreementInterface {
     }
 
     @Override
-    public AgreementStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
     @Override
-    public void setStatus(AgreementStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -90,7 +86,7 @@ public class Agreement implements AgreementInterface {
     }
 
     @Override
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 

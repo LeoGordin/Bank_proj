@@ -1,9 +1,7 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.ClientStatus;
 import BankProject.domain.entity.interfaces.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +12,6 @@ import java.util.List;
 @Entity
 @Table(name = "client")
 @NoArgsConstructor
-@AllArgsConstructor
 public class Client implements ClientInterface {
 
     @Id
@@ -32,8 +29,7 @@ public class Client implements ClientInterface {
     private Manager manager;
 
     @Column(name = "status")
-    @Enumerated(EnumType.ORDINAL)
-    private ClientStatus status;
+    private String status;
 
     @Column(name = "tax_code")
     private String taxCode;
@@ -59,11 +55,6 @@ public class Client implements ClientInterface {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @Column(name = "role")
-    @Getter
-    @Setter
-    private Role role;
-
     @OneToMany(mappedBy = "client")
     private List<Account> accounts;
 
@@ -85,7 +76,7 @@ public class Client implements ClientInterface {
     }
 
     @Override
-    public ClientStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 

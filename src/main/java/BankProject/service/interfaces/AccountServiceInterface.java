@@ -11,13 +11,13 @@ public interface AccountServiceInterface {
 
     List<AccountDTO> findAll();
 
-    AccountDTO findById(UUID id);
+    AccountDTO findById(int id);
 
-    AccountDTO createAccount(AccountDTO account);
+    AccountDTO saveAccount(AccountDTO account);
 
     void deleteAccount(AccountDTO account);
 
-    void deleteAccountById(UUID id);
+    void deleteAccountById(int id);
 
     BigDecimal getBalance(AccountDTO account);
 

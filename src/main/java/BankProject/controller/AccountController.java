@@ -1,6 +1,5 @@
 package BankProject.controller;
 
-import BankProject.domain.entity.Account;
 import BankProject.domain.entity.dto.AccountDTO;
 import BankProject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +21,26 @@ public class AccountController {
     }
 
     @RequestMapping("/{id}")
-    AccountDTO findById(@PathVariable UUID id) {
+    AccountDTO findById(@PathVariable int id) {
         return accountService.findById(id);
     }
 
-    @PostMapping
-    public AccountDTO createAccount(@RequestBody AccountDTO account) {
-        accountService.createAccount(account);
+    @PostMapping("/add")
+    public AccountDTO saveAccount(@RequestBody AccountDTO account) {
+        accountService.saveAccount(account);
         return account;
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public void deleteAccount(@RequestBody AccountDTO account) {
         accountService.deleteAccount(account);
         System.out.println("Account deleted");
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteAccountById(@PathVariable UUID id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteAccountById(@PathVariable int id) {
         accountService.deleteAccountById(id);
         System.out.printf("Account with id %s deleted", id);
     }
-
-
 
 }

@@ -11,11 +11,11 @@ public interface AgreementServiceInterface {
 
     List<AgreementDTO> getByClientId(int clientId);
 
-    AgreementDTO getById(UUID id);
+    AgreementDTO getById(int id);
 
-    void removeById(UUID id);
+    void deleteById(int id);
 
-    void createAgreement(AgreementDTO agreement);
+    void saveAgreement(AgreementDTO agreement);
 
     void removeAgreement(AgreementDTO agreement);
 

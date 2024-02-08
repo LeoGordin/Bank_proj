@@ -1,8 +1,6 @@
 package BankProject.domain.entity.interfaces;
 
 import BankProject.domain.entity.Client;
-import BankProject.domain.entity.enums.AgreementStatus;
-import BankProject.domain.entity.enums.Currency;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -20,14 +18,14 @@ public interface AgreementInterface {
      * Returns ID of the agreement (between Bank and Client)
      * @return ID of @Agreement
      */
-    UUID getId();
+    int getId();
 
     /**
      * Returns ID of an account, used in agreement
      *
      * @return ID of @Account
      */
-    UUID getAccountId();
+    int getAccountId();
 
     /**
      * Returns ID of a product, used in agreement
@@ -48,14 +46,14 @@ public interface AgreementInterface {
      *
      * @return @AGREEMENT_STATUS (value) of @Agreement
      */
-    AgreementStatus getStatus();
+    String getStatus();
 
     /**
      * Sets status of an agreement
      *
      * Sets @AGREEMENT_STATUS of @Agreement
      */
-    void setStatus(AgreementStatus status);
+    void setStatus(String status);
 
     /**
      * Retrieves sum of the agreement
@@ -69,7 +67,7 @@ public interface AgreementInterface {
      *
      * @return @CURRENCY_CODE of @Agreement
      */
-    Currency getCurrency();
+    String getCurrency();
 
     /**
      * Retrieves creation date and time of the agreement

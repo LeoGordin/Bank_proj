@@ -1,13 +1,10 @@
 package BankProject.domain.entity;
 
-import BankProject.domain.entity.enums.ClientStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.Set;
@@ -23,13 +20,11 @@ public class User implements UserDetails {
     private int id;
 
     @Column(name = "username")
-
     private String username;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
@@ -37,6 +32,9 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public User() {
+    }
 
     @Override
     @JsonIgnore
